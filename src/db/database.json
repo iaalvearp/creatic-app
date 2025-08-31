@@ -1,0 +1,219 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "nombre": "Técnico de Campo"
+    },
+    {
+      "id": 2,
+      "nombre": "Supervisor"
+    }
+  ],
+
+  "usuarios": [
+    {
+      "id": 101,
+      "nombre": "Juan Perez",
+      "email": "juan.perez@email.com",
+      "password": "123",
+      "rolId": 1
+    },
+    {
+      "id": 102,
+      "nombre": "Maria Lopez",
+      "email": "maria.lopez@email.com",
+      "password": "456",
+      "rolId": 1
+    }
+  ],
+
+  "clientes": [
+    {
+      "id": 1,
+      "nombre": "CNEL"
+    }
+  ],
+
+  "unidadesNegocio": [
+    {
+      "id": 1,
+      "clienteId": 1,
+      "nombre": "MANABI"
+    },
+    {
+      "id": 2,
+      "clienteId": 1,
+      "nombre": "GUAYAS"
+    }
+  ],
+
+  "ubicaciones": [
+    {
+      "id": 100,
+      "unidadNegocioId": 1,
+      "nombre": "Agencia Manta"
+    },
+    {
+      "id": 101,
+      "unidadNegocioId": 1,
+      "nombre": "Localidad Ejemplo 1"
+    },
+    {
+      "id": 102,
+      "unidadNegocioId": 1,
+      "nombre": "Localidad Ejemplo 2"
+    },
+    {
+      "id": 103,
+      "unidadNegocioId": 1,
+      "nombre": "Localidad Ejemplo 3"
+    }
+  ],
+
+  "tiposEquipo": [
+    {
+      "id": 1,
+      "nombre": "SECCIONADOR MONOFASICO",
+      "caracteristicas": "TIPO COVENCIONAL, MONTAJE EN POSTE, 15KV, 110KV BIL, 200A",
+      "unidad": "U"
+    },
+    {
+      "id": 2,
+      "nombre": "SECCIONADOR TRIFASICO",
+      "caracteristicas": "TIPO COVENCIONAL, MONTAJE EN POSTE, 15KV, 110KV BIL, 600A",
+      "unidad": "U"
+    },
+    {
+      "id": 3,
+      "nombre": "RESTAURADOR",
+      "caracteristicas": "15KV, 110 KV BIL, 630A, 12KA",
+      "unidad": "U"
+    },
+    {
+      "id": 4,
+      "nombre": "TRANSFORMADOR DE DISTRIBUCION CONVENCIONAL MONOFASICO",
+      "caracteristicas": "15,25,37.5,50,75,100 KVA",
+      "unidad": "U"
+    },
+    {
+      "id": 5,
+      "nombre": "TRANSFORMADOR DE DISTRIBUCION AUTOPROTEGIDO MONOFASICO",
+      "caracteristicas": "15,25,37.5,50,75,100 KVA",
+      "unidad": "U"
+    },
+    {
+      "id": 6,
+      "nombre": "TRANSFORMADOR TRIFASICO TIPO PEDESTAL (PAD MOUNTED)",
+      "caracteristicas": "30,50,75,112.5,150,225,300 KVA",
+      "unidad": "U"
+    },
+    {
+      "id": 7,
+      "nombre": "BANCO DE CAPACITORES",
+      "caracteristicas": "150, 300, 450, 600 KVAR",
+      "unidad": "U"
+    },
+    {
+      "id": 8,
+      "nombre": "REGULADOR DE VOLTAJE",
+      "caracteristicas": "50, 100, 150 A",
+      "unidad": "U"
+    },
+    {
+      "id": 9,
+      "nombre": "RED PREENSAMBLADA",
+      "caracteristicas": "2X35, 2X50, 2X70, 4X25, 3X35+50, 3X50+50, 3X70+50, 3X120+70",
+      "unidad": "ML"
+    },
+    {
+      "id": 10,
+      "nombre": "POSTE DE HORMIGON ARMADO",
+      "caracteristicas": "10,12,14,16,18 M",
+      "unidad": "U"
+    },
+    {
+      "id": 11,
+      "nombre": "POSTE FIBRA DE VIDRIO",
+      "caracteristicas": "12,14 M",
+      "unidad": "U"
+    },
+    {
+      "id": 12,
+      "nombre": "LUMINARIA",
+      "caracteristicas": "100, 150, 200, 250 W",
+      "unidad": "U"
+    },
+    {
+      "id": 13,
+      "nombre": "FOTOCELULA",
+      "caracteristicas": "1000W",
+      "unidad": "U"
+    },
+    {
+      "id": 14,
+      "nombre": "MEDIDOR MONOFASICO",
+      "caracteristicas": "120V, 240V",
+      "unidad": "U"
+    },
+    {
+      "id": 15,
+      "nombre": "MEDIDOR BIFASICO",
+      "caracteristicas": "120-240V",
+      "unidad": "U"
+    },
+    {
+      "id": 16,
+      "nombre": "MEDIDOR TRIFASICO",
+      "caracteristicas": "240-480V",
+      "unidad": "U"
+    },
+    {
+      "id": 17,
+      "nombre": "CABLE CONCENTRICO",
+      "caracteristicas": "2X10, 2X8, 2X6, 3X8, 3X6, 3X4, 4X4, 4X2",
+      "unidad": "ML"
+    },
+    {
+      "id": 18,
+      "nombre": "AISLADOR DE SUSPENSION",
+      "caracteristicas": "POLIMERICO, 15KV",
+      "unidad": "U"
+    },
+    {
+      "id": 19,
+      "nombre": "AISLADOR DE PIN",
+      "caracteristicas": "POLIMERICO, 15KV",
+      "unidad": "U"
+    },
+    {
+      "id": 20,
+      "nombre": "CABLE DE ALUMINIO",
+      "caracteristicas": "#2, #1/0, #4/0, #336",
+      "unidad": "ML"
+    }
+  ],
+
+  "tareas": [
+    {
+      "id": 1,
+      "usuarioId": 101,
+      "ubicacionId": 101,
+      "tipoEquipoId": 3,
+      "estado": "pendiente"
+    },
+    {
+      "id": 2,
+      "usuarioId": 101,
+      "ubicacionId": 102,
+      "tipoEquipoId": 10,
+      "estado": "pendiente"
+    },
+    {
+      "id": 3,
+      "usuarioId": 102,
+      "ubicacionId": 103,
+      "tipoEquipoId": 12,
+      "estado": "pendiente"
+    }
+  ]
+}
