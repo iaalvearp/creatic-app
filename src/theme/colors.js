@@ -1,6 +1,6 @@
 export const COLORS = {
-    primary: '#005A9C', // Un azul corporativo
-    secondary: '#F5A623', // Un naranja para acentos
+    primary: '#39B2FF', // Un azul corporativo
+    secondary: '#FF6600', // Un naranja para acentos
     background: '#FFFFFF',
     textPrimary: '#333333',
     textSecondary: '#7F7F7F',

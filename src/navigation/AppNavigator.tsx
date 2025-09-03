@@ -2,8 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context/AuthContext';
-import LoginScreen from '../screen/LoginScreen'; // Apunta al archivo LoginScreen
+import LoginScreen from '../screen/LoginScreen';
 import HomeScreen from '../screen/HomeScreen';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,15 +15,17 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {usuario ? (
+          // Si hay un usuario, muestra el Menú Lateral completo
           <Stack.Screen
-            name="Inicio"
-            component={HomeScreen}
-            options={{ title: 'Mis Tareas Asignadas' }}
+            name="App" // Le damos un nombre genérico al contenedor del drawer
+            component={DrawerNavigator}
+            options={{ headerShown: false }} // Ocultamos el header del Stack
           />
         ) : (
+          // Si NO hay usuario, muestra la pantalla de Login
           <Stack.Screen
             name="Login"
-            component={LoginScreen} // Ahora es el componente correcto
+            component={LoginScreen}
             options={{ headerShown: false }}
           />
         )}
