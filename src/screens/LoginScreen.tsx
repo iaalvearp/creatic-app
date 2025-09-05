@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BotonPrincipal from '../components/common/BotonPrincipal';
-import { authService } from '../service/authService';
+import { authService } from '../services/authService';
 import { useAuth } from '../context/AuthContext';
 import { COLORS } from '../theme/colors';
 import { FONTS } from '../theme/typography';

@@ -1,15 +1,16 @@
 import React from 'react';
 import { AuthProvider } from './src/context/AuthContext';
 import AppNavigator from './src/navigation/AppNavigator';
-
-// Nota: Ya no necesitamos el SafeAreaProvider aquí porque
-// NavigationContainer y las pantallas individuales lo gestionan.
+import { GestureHandlerRootView } from 'react-native-gesture-handler'; // 👈 1. Importa el componente
 
 const App = () => {
   return (
-    <AuthProvider>
-      <AppNavigator />
-    </AuthProvider>
+    // 2. Envuelve toda tu app y añade el estilo flex: 1
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <AppNavigator />
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 };
 

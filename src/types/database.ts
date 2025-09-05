@@ -1,64 +1,79 @@
-// src/types/database.ts
-
+// --- Interfaces para database.json ---
 export interface Rol {
   id: number;
   nombre: string;
 }
-
 export interface Usuario {
   id: number;
   nombre: string;
   email: string;
-  password: string; // En un app real, esto no debería existir en el cliente
+  password?: string;
   rolId: number;
 }
-
 export interface Cliente {
   id: number;
   nombre: string;
+  nombreCompleto: string;
 }
-
+export interface Agencia {
+  id: number;
+  nombre: string;
+}
 export interface UnidadNegocio {
   id: number;
-  clienteId: number;
   nombre: string;
+  agencia: Agencia[];
 }
-
 export interface Ubicacion {
   id: number;
-  unidadNegocioId: number;
-  nombre: string;
+  provincia: string;
+  unidadNegocio: UnidadNegocio[];
 }
-
 export interface TipoEquipo {
-  id: number;
+  id: string;
   nombre: string;
   caracteristicas: string;
-  unidad: string;
+  modelo: string;
+  cliente: number;
+  provincia: number;
+  unidadNegocio: number;
+  agencia: number;
 }
-
-export interface Tarea {
+export interface Estado {
   id: number;
-  usuarioId: number;
-  ubicacionId: number;
-  tipoEquipoId: number;
-  estado: string;
+  nombre: string;
 }
 
-// Este es el tipo para la tarea "enriquecida" que devuelve tu servicio
-export interface TareaEnriquecida extends Tarea {
-  equipo: string;
-  ubicacionNombre: string;
-  unidadNegocioNombre: string;
-}
-
-// Finalmente, definimos la estructura completa del archivo JSON
 export interface Database {
   roles: Rol[];
   usuarios: Usuario[];
   clientes: Cliente[];
-  unidadesNegocio: UnidadNegocio[];
-  ubicaciones: Ubicacion[];
-  tiposEquipo: TipoEquipo[];
-  tareas: Tarea[];
+  ubicacion: Ubicacion[];
+  tiposEquipos: TipoEquipo[];
+  estados: Estado[];
+}
+
+// --- Interfaces para tareas.json ---
+export interface EquipoEnTarea {
+  id: string;
+  nombre: string;
+  modelo: string;
+  caracteristicas: string;
+  estadoId: number;
+}
+
+export interface TareaAgrupada {
+  id: number;
+  clienteId: number;
+  provinciaId: number;
+  unidadNegocioId: number;
+  usuarioId: number;
+  equipos: EquipoEnTarea[];
+}
+
+// --- Tipo para el objeto final que usará la UI ---
+export interface TareaIndividualEnriquecida
+  extends Omit<EquipoEnTarea, 'estadoId'> {
+  tareaId: number;
+  estado: string; // El nombre del estado, ej: "pendiente"
 }

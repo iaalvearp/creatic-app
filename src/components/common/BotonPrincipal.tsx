@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: COLORS.white,
     fontSize: 16,
-    fontFamily: FONTS.semibold,
+    fontFamily: FONTS.VersosVariableTest,
   },
 });
 

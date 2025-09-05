@@ -6,8 +6,8 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { View, Text, Image, StyleSheet } from 'react-native'; // Importamos componentes para la UI
-import HomeScreen from '../screen/HomeScreen';
-import SincronizarScreen from '../screen/SincronizarScreen';
+import HomeScreen from '../screens/HomeScreen';
+import SincronizarScreen from '../screens/SincronizarScreen';
 import { useAuth } from '../context/AuthContext';
 import { COLORS } from '../theme/colors'; // Importamos nuestros colores
 import { FONTS } from '../theme/typography'; // Importamos nuestras fuentes

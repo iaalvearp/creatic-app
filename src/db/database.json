@@ -30,190 +30,225 @@
   "clientes": [
     {
       "id": 1,
-      "nombre": "CNEL"
+      "nombre": "cnel",
+      "nombreCompleto": "CORPORACION NACIONAL DE ELECTRICIDAD CNEL EP"
     }
   ],
 
-  "unidadesNegocio": [
-    {
-      "id": 1,
-      "clienteId": 1,
-      "nombre": "MANABI"
-    },
-    {
-      "id": 2,
-      "clienteId": 1,
-      "nombre": "GUAYAS"
-    }
-  ],
-
-  "ubicaciones": [
-    {
-      "id": 100,
-      "unidadNegocioId": 1,
-      "nombre": "Agencia Manta"
-    },
-    {
-      "id": 101,
-      "unidadNegocioId": 1,
-      "nombre": "Localidad Ejemplo 1"
-    },
-    {
-      "id": 102,
-      "unidadNegocioId": 1,
-      "nombre": "Localidad Ejemplo 2"
-    },
-    {
-      "id": 103,
-      "unidadNegocioId": 1,
-      "nombre": "Localidad Ejemplo 3"
-    }
-  ],
-
-  "tiposEquipo": [
-    {
-      "id": 1,
-      "nombre": "SECCIONADOR MONOFASICO",
-      "caracteristicas": "TIPO COVENCIONAL, MONTAJE EN POSTE, 15KV, 110KV BIL, 200A",
-      "unidad": "U"
-    },
-    {
-      "id": 2,
-      "nombre": "SECCIONADOR TRIFASICO",
-      "caracteristicas": "TIPO COVENCIONAL, MONTAJE EN POSTE, 15KV, 110KV BIL, 600A",
-      "unidad": "U"
-    },
-    {
-      "id": 3,
-      "nombre": "RESTAURADOR",
-      "caracteristicas": "15KV, 110 KV BIL, 630A, 12KA",
-      "unidad": "U"
-    },
-    {
-      "id": 4,
-      "nombre": "TRANSFORMADOR DE DISTRIBUCION CONVENCIONAL MONOFASICO",
-      "caracteristicas": "15,25,37.5,50,75,100 KVA",
-      "unidad": "U"
-    },
-    {
-      "id": 5,
-      "nombre": "TRANSFORMADOR DE DISTRIBUCION AUTOPROTEGIDO MONOFASICO",
-      "caracteristicas": "15,25,37.5,50,75,100 KVA",
-      "unidad": "U"
-    },
-    {
-      "id": 6,
-      "nombre": "TRANSFORMADOR TRIFASICO TIPO PEDESTAL (PAD MOUNTED)",
-      "caracteristicas": "30,50,75,112.5,150,225,300 KVA",
-      "unidad": "U"
-    },
-    {
-      "id": 7,
-      "nombre": "BANCO DE CAPACITORES",
-      "caracteristicas": "150, 300, 450, 600 KVAR",
-      "unidad": "U"
-    },
-    {
-      "id": 8,
-      "nombre": "REGULADOR DE VOLTAJE",
-      "caracteristicas": "50, 100, 150 A",
-      "unidad": "U"
-    },
-    {
-      "id": 9,
-      "nombre": "RED PREENSAMBLADA",
-      "caracteristicas": "2X35, 2X50, 2X70, 4X25, 3X35+50, 3X50+50, 3X70+50, 3X120+70",
-      "unidad": "ML"
-    },
-    {
-      "id": 10,
-      "nombre": "POSTE DE HORMIGON ARMADO",
-      "caracteristicas": "10,12,14,16,18 M",
-      "unidad": "U"
-    },
-    {
-      "id": 11,
-      "nombre": "POSTE FIBRA DE VIDRIO",
-      "caracteristicas": "12,14 M",
-      "unidad": "U"
-    },
-    {
-      "id": 12,
-      "nombre": "LUMINARIA",
-      "caracteristicas": "100, 150, 200, 250 W",
-      "unidad": "U"
-    },
+  "ubicacion": [
     {
       "id": 13,
-      "nombre": "FOTOCELULA",
-      "caracteristicas": "1000W",
-      "unidad": "U"
-    },
-    {
-      "id": 14,
-      "nombre": "MEDIDOR MONOFASICO",
-      "caracteristicas": "120V, 240V",
-      "unidad": "U"
-    },
-    {
-      "id": 15,
-      "nombre": "MEDIDOR BIFASICO",
-      "caracteristicas": "120-240V",
-      "unidad": "U"
-    },
-    {
-      "id": 16,
-      "nombre": "MEDIDOR TRIFASICO",
-      "caracteristicas": "240-480V",
-      "unidad": "U"
-    },
-    {
-      "id": 17,
-      "nombre": "CABLE CONCENTRICO",
-      "caracteristicas": "2X10, 2X8, 2X6, 3X8, 3X6, 3X4, 4X4, 4X2",
-      "unidad": "ML"
-    },
-    {
-      "id": 18,
-      "nombre": "AISLADOR DE SUSPENSION",
-      "caracteristicas": "POLIMERICO, 15KV",
-      "unidad": "U"
-    },
-    {
-      "id": 19,
-      "nombre": "AISLADOR DE PIN",
-      "caracteristicas": "POLIMERICO, 15KV",
-      "unidad": "U"
-    },
-    {
-      "id": 20,
-      "nombre": "CABLE DE ALUMINIO",
-      "caracteristicas": "#2, #1/0, #4/0, #336",
-      "unidad": "ML"
+      "provincia": "MANABI",
+      "unidadNegocio": [
+        {
+          "id": 1,
+          "nombre": "AGENCIA PRIZA",
+          "agencia": [
+            {
+              "id": 1,
+              "nombre": "POR DEFINIR"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "AGENCIA PORTOVIEJO COMERCIAL",
+          "agencia": [
+            {
+              "id": 1,
+              "nombre": "POR DEFINIR"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "SUBESTACION MANTA 1",
+          "agencia": [
+            {
+              "id": 1,
+              "nombre": "POR DEFINIR"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "EQUIPOS EN POSTE",
+          "agencia": [
+            {
+              "id": 1,
+              "nombre": "POR DEFINIR"
+            }
+          ]
+        }
+      ]
     }
   ],
 
-  "tareas": [
+  "tiposEquipos": [
+    {
+      "id": "21980107133GJ7000257",
+      "nombre": "SWITCH CAPA 3",
+      "caracteristicas": "(48 Ethernet 10/100/1000 ports,4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5730-68C-SI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 1,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600371",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 1,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600293",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 1,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600373",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 1,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600325",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 1,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600297",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 2,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600326",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 2,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600318",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 2,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600315",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 3,
+      "agencia": 1
+    },
+    {
+      "id": "21980107133GJ7000255",
+      "nombre": "SWITCH CAPA 3",
+      "caracteristicas": "(48 Ethernet 10/100/1000 ports,4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5730-68C-SI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600336",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600332",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600322",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600338",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    },
+    {
+      "id": "21980105812SJ4600317",
+      "nombre": "SWITCH CAPA 2",
+      "caracteristicas": "(24 Ethernet 10/100/1000 ports, 4 10 Gig SFP+, AC 110/220V)",
+      "modelo": "S5720-28X-LI-AC",
+      "cliente": 1,
+      "provincia": 13,
+      "unidadNegocio": 4,
+      "agencia": 1
+    }
+  ],
+
+  "estados": [
     {
       "id": 1,
-      "usuarioId": 101,
-      "ubicacionId": 101,
-      "tipoEquipoId": 3,
-      "estado": "pendiente"
+      "nombre": "pendiente"
     },
     {
       "id": 2,
-      "usuarioId": 101,
-      "ubicacionId": 102,
-      "tipoEquipoId": 10,
-      "estado": "pendiente"
+      "nombre": "en progreso"
     },
     {
       "id": 3,
-      "usuarioId": 102,
-      "ubicacionId": 103,
-      "tipoEquipoId": 12,
-      "estado": "pendiente"
+      "nombre": "completado"
     }
   ]
 }
