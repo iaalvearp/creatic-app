@@ -4,15 +4,13 @@ const FORM_DATA_KEY_PREFIX = '@FormData:';
 
 // Guarda los datos de una sección específica de un formulario para una tarea
 export const saveFormSection = async (
-  taskId: number,
+  equipoId: string,
   sectionName: string,
   data: object,
 ) => {
   try {
-    const key = `${FORM_DATA_KEY_PREFIX}${taskId}`;
-    // Primero, obtenemos los datos que ya existen para esa tarea
-    const existingData = await getFormData(taskId);
-    // Luego, fusionamos los datos nuevos con los existentes
+    const key = `${FORM_DATA_KEY_PREFIX}${equipoId}`;
+    const existingData = await getFormData(equipoId);
     const newData = {
       ...existingData,
       [sectionName]: data,
@@ -24,9 +22,9 @@ export const saveFormSection = async (
 };
 
 // Obtiene todos los datos guardados para una tarea específica
-export const getFormData = async (taskId: number) => {
+export const getFormData = async (equipoId: string) => {
   try {
-    const key = `${FORM_DATA_KEY_PREFIX}${taskId}`;
+    const key = `${FORM_DATA_KEY_PREFIX}${equipoId}`;
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : {};
   } catch (e) {

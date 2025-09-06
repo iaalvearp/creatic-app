@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/HomeScreen';
 import DrawerNavigator from './DrawerNavigator';
+import FormStackNavigator from './FormStackNavigator';
+import { RootStackNavigatorParamList } from './types'; // ✅ La importación ahora funcionará
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackNavigatorParamList>();
 
 const AppNavigator = () => {
   const { usuario } = useAuth();
@@ -15,14 +16,19 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {usuario ? (
-          // Si hay un usuario, muestra el Menú Lateral completo
-          <Stack.Screen
-            name="App" // Le damos un nombre genérico al contenedor del drawer
-            component={DrawerNavigator}
-            options={{ headerShown: false }} // Ocultamos el header del Stack
-          />
+          <>
+            <Stack.Screen
+              name="App"
+              component={DrawerNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Formularios"
+              component={FormStackNavigator}
+              options={{ headerShown: false }}
+            />
+          </>
         ) : (
-          // Si NO hay usuario, muestra la pantalla de Login
           <Stack.Screen
             name="Login"
             component={LoginScreen}

@@ -28,26 +28,26 @@ const FormMenuScreen = ({ route, navigation }: FormMenuScreenProps) => {
 
   // ✅ 2. Completamos la lógica de navegación para todos los botones
   const handleSectionPress = (section: string) => {
-    const tareaId = tarea.id;
+    const equipoId = tarea.id;
 
     switch (section) {
       case 'Información General':
-        navigation.navigate('InformacionGeneral', { tareaId });
+        navigation.navigate('InformacionGeneral', { equipoId });
         break;
       case 'Información de Equipo':
-        navigation.navigate('InformacionEquipo', { tareaId });
+        navigation.navigate('InformacionEquipo', { equipoId });
         break;
       case 'Actividades de Mantenimiento':
-        navigation.navigate('ActividadesMantenimiento', { tareaId });
+        navigation.navigate('ActividadesMantenimiento', { equipoId });
         break;
       case 'Tareas de Diagnóstico':
-        navigation.navigate('TareasDiagnostico', { tareaId });
+        navigation.navigate('TareasDiagnostico', { equipoId });
         break;
       case 'Reporte Fotográfico':
-        navigation.navigate('ReporteFotografico', { tareaId });
+        navigation.navigate('ReporteFotografico', { equipoId });
         break;
       case 'Firmas':
-        navigation.navigate('Firmas', { tareaId });
+        navigation.navigate('Firmas', { equipoId });
         break;
       default:
         console.log(`Ruta no definida para: ${section}`);

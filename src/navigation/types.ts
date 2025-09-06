@@ -1,18 +1,34 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TareaEnriquecida } from '../types/database';
+import type {
+  NativeStackScreenProps,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
+import type { NavigatorScreenParams } from '@react-navigation/native';
+import { TareaIndividualEnriquecida } from '../types/database';
 
-// 1. Define el "contrato" completo para tu Stack de Formularios
-export type FormStackNavigatorParamList = {
-  FormMenu: { tarea: TareaEnriquecida };
-  InformacionGeneral: { tareaId: number };
-  InformacionEquipo: { tareaId: number };
-  ActividadesMantenimiento: { tareaId: number };
-  TareasDiagnostico: { tareaId: number };
-  ReporteFotografico: { tareaId: number };
-  Firmas: { tareaId: number };
+// Contrato para el Navegador de Stack Principal
+export type RootStackNavigatorParamList = {
+  Login: undefined;
+  App: undefined;
+  Formularios: NavigatorScreenParams<FormStackNavigatorParamList>;
 };
 
-// 2. Crea tipos específicos para las props de CADA pantalla
+// Contrato para el Navegador de Stack de Formularios
+export type FormStackNavigatorParamList = {
+  FormMenu: { tarea: TareaIndividualEnriquecida };
+  InformacionGeneral: { equipoId: string };
+  InformacionEquipo: { equipoId: string };
+  ActividadesMantenimiento: { equipoId: string };
+  TareasDiagnostico: { equipoId: string };
+  ReporteFotografico: { equipoId: string };
+  Firmas: { equipoId: string };
+};
+
+// Tipo de ayuda para la prop de navegación del Stack Principal
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackNavigatorParamList>;
+
+// --- 👇 Tipos de Props para CADA Pantalla del Formulario (ESTO ES LO QUE FALTABA) ---
+
 export type FormMenuScreenProps = NativeStackScreenProps<
   FormStackNavigatorParamList,
   'FormMenu'

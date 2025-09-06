@@ -77,3 +77,42 @@ export interface TareaIndividualEnriquecida
   tareaId: number;
   estado: string; // El nombre del estado, ej: "pendiente"
 }
+
+export interface PosibleRespuesta {
+  id: number;
+  label: string;
+  value: string;
+}
+
+export interface ActividadMantenimiento {
+  id: number;
+  nombre: string;
+}
+
+// --- Nuevos tipos para los datos que se guardarán localmente ---
+
+export interface InformacionGeneralGuardada {
+  mantenimientoNo?: string;
+  provinciaId?: number;
+  unidadNegocioId?: number;
+  agenciaId?: number;
+  // ... otros campos
+}
+
+export interface ActividadGuardada {
+  actividadId: number;
+  respuesta: string;
+  observacion?: string;
+}
+
+export interface FormularioGuardado {
+  informacionGeneral?: InformacionGeneralGuardada;
+  // informacionEquipo?: ...
+  actividadesMantenimiento?: ActividadGuardada[];
+  // ... etc.
+}
+
+export interface DropdownItem {
+  label: string;
+  value: number | string;
+}

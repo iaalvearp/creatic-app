@@ -1,23 +1,37 @@
 import React, { Suspense } from 'react';
-import { StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-import { TareaEnriquecida } from '../types/database';
+import { TareaIndividualEnriquecida } from '../types/database';
 import TaskList from '../components/features/TaskList';
 import { COLORS } from '../theme/colors';
+import { RootStackNavigationProp } from '../navigation/types'; // 👈 1. Importamos nuestro nuevo tipo
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  // 2. Le pasamos el "mapa" a nuestro "GPS"
+  const navigation = useNavigation<RootStackNavigationProp>();
   const { usuario } = useAuth();
 
-  const handleTaskPress = (tarea: TareaEnriquecida) => {
-    // Navegamos a la nueva ruta 'Formularios' y pasamos la tarea como parámetro
-    // @ts-ignore
-    navigation.navigate('Formularios', { tarea });
+  const handleTaskPress = (tarea: TareaIndividualEnriquecida) => {
+    // Ahora, esta línea es 100% segura y no dará error
+    navigation.navigate('Formularios', {
+      screen: 'FormMenu',
+      params: { tarea: tarea },
+    });
   };
 
-  if (!usuario) return null;
+  if (!usuario) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator
+          size="large"
+          color={COLORS.primary}
+          style={styles.loader}
+        />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
