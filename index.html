@@ -1,125 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Panel de Creación de Tareas</title>
-        <link rel="icon" href="./assets/favicon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="./styles/style.css" />
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <h1>Crear Nueva Tarea de Mantenimiento</h1>
-                <p>
-                    Complete la información para asignar una nueva tarea al
-                    personal de campo.
-                </p>
-            </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Creación de Tareas</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <h1>Panel de Gestión de Tareas</h1>
+        <button id="logout-button">Cerrar Sesión</button>
+      </header>
 
-            <!-- Formulario Principal -->
-            <form id="formulario-tarea">
-                <!-- SECCIÓN 1: INFORMACIÓN GENERAL -->
+      <!-- Pestañas de Navegación -->
+      <nav class="tabs">
+        <button id="tab-crear" class="tab-button active">Crear Tarea</button>
+        <button id="tab-gestionar" class="tab-button">Gestionar Tareas</button>
+      </nav>
+
+      <!-- Contenido de las Pestañas -->
+      <main>
+        <!-- Vista para Crear Tarea (inicialmente visible) -->
+        <div id="vista-crear" class="tab-content active">
+          <form id="formulario-tarea">
+            <!-- SECCIÓN 1: INFORMACIÓN GENERAL -->
+            <div>
+              <h2>Información General</h2>
+              <div class="grid-container">
+                <div class="form-section">
+                  <div>
+                    <label for="select-cliente">Cliente</label
+                    ><select id="select-cliente">
+                      <option>Cargando...</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="select-provincia">Provincia</label
+                    ><select id="select-provincia">
+                      <option>Cargando...</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="select-unidad-negocio">Unidad de Negocio</label
+                    ><select id="select-unidad-negocio" disabled>
+                      <option>Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-section">
+                  <div>
+                    <label for="select-proyecto">Proyecto</label
+                    ><select id="select-proyecto" disabled>
+                      <option>Seleccione...</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="select-ciudad">Ciudad</label
+                    ><select id="select-ciudad" disabled>
+                      <option>Seleccione...</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="select-agencia">Localidad / Agencia</label
+                    ><select id="select-agencia" disabled>
+                      <option>Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- SECCIÓN 2: INFORMACIÓN DE EQUIPO -->
+            <div>
+              <h2>Información de Equipo</h2>
+              <div class="grid-container">
                 <div>
-                    <h2>Información General</h2>
-                    <div class="grid-container">
-                        <!-- Columna 1 -->
-                        <div class="form-section">
-                            <div>
-                                <label for="select-cliente">Cliente</label>
-                                <select id="select-cliente">
-                                    <option>Cargando clientes...</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="select-provincia">Provincia</label>
-                                <select id="select-provincia">
-                                    <option>Cargando provincias...</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="select-unidad-negocio"
-                                    >Unidad de Negocio</label
-                                >
-                                <select id="select-unidad-negocio" disabled>
-                                    <option>Seleccione una provincia...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Columna 2 -->
-                        <div class="form-section">
-                            <div>
-                                <label for="select-proyecto">Proyecto</label>
-                                <select id="select-proyecto" disabled>
-                                    <option>Seleccione un cliente...</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="select-ciudad">Ciudad</label>
-                                <select id="select-ciudad" disabled>
-                                    <option>Seleccione una provincia...</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="select-agencia"
-                                    >Localidad / Agencia</label
-                                >
-                                <select id="select-agencia" disabled>
-                                    <option>Seleccione una ciudad...</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                  <label for="select-equipo">Número de Serie del Equipo</label
+                  ><select id="select-equipo" disabled>
+                    <option>Seleccione...</option>
+                  </select>
                 </div>
-
-                <!-- SECCIÓN 2: INFORMACIÓN DE EQUIPO -->
-                <div>
-                    <h2>Información de Equipo</h2>
-                    <div class="grid-container">
-                        <div>
-                            <label for="select-equipo"
-                                >Número de Serie del Equipo</label
-                            >
-                            <select id="select-equipo" disabled>
-                                <option>Seleccione una agencia...</option>
-                            </select>
-                        </div>
-                        <div class="form-section">
-                            <div>
-                                <label>Nombre del Equipo</label>
-                                <input
-                                    type="text"
-                                    id="info-nombre-equipo"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 1rem">
-                        <label>Modelo y Características</label>
-                        <textarea
-                            id="info-caracteristicas-equipo"
-                            rows="3"
-                            readonly
-                        ></textarea>
-                    </div>
+                <div class="form-section">
+                  <div>
+                    <label>Nombre del Equipo</label
+                    ><input type="text" id="info-nombre-equipo" readonly />
+                  </div>
                 </div>
-
-                <!-- Botón de Envío -->
-                <div class="submit-container">
-                    <button type="submit" id="btn-crear-tarea" disabled>
-                        Crear Tarea
-                    </button>
-                </div>
-            </form>
+              </div>
+              <div style="margin-top: 1rem">
+                <label>Modelo y Características</label
+                ><textarea
+                  id="info-caracteristicas-equipo"
+                  rows="3"
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+            <div class="submit-container">
+              <button type="submit" id="btn-crear-tarea" disabled>
+                Crear Tarea
+              </button>
+            </div>
+          </form>
         </div>
 
-        <script src="./scripts/app.js" type="module"></script>
-    </body>
+        <!-- Vista para Gestionar Tareas (inicialmente oculta) -->
+        <div id="vista-gestionar" class="tab-content">
+          <div class="gestion-header">
+            <h2>Tareas Creadas</h2>
+            <p>Aquí puedes ver, editar o eliminar las tareas asignadas.</p>
+          </div>
+          <div id="lista-tareas-container" class="task-list">
+            <!-- Las tareas se insertarán aquí con JavaScript -->
+            <p>Cargando tareas...</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/api-service.js" type="module"></script>
+    <script src="js/app.js" type="module"></script>
+  </body>
 </html>
