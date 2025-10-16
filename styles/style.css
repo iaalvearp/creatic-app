@@ -232,6 +232,7 @@ textarea {
   border-top: 1px solid var(--color-borde);
   display: flex;
   justify-content: flex-end;
+  gap: 0.75rem;
 }
 button {
   background-color: var(--color-primario);
@@ -251,6 +252,16 @@ button:disabled {
   background-color: #fdba74;
   cursor: not-allowed;
 }
+
+/* ¡NUEVO ESTILO! Para el botón de cancelar */
+.button-secondary {
+  background-color: var(--color-fondo-input);
+  color: var(--color-texto-claro);
+  border: 1px solid var(--color-borde);
+}
+.button-secondary:hover {
+  background-color: #e2e8f0;
+} /* slate-200 */
 
 /* Lista de Tareas */
 .task-list {
@@ -325,6 +336,12 @@ button:disabled {
   font-size: 0.875rem;
   padding: 0.5rem 1rem;
 }
+.task-card-button.edit {
+  background-color: #3b82f6;
+} /* blue-500 */
+.task-card-button.edit:hover {
+  background-color: #2563eb;
+} /* blue-600 */
 .task-card-button.delete {
   background-color: var(--color-error);
 }

@@ -43,6 +43,14 @@
                     </select>
                   </div>
                   <div>
+                    <label for="select-tecnico">Técnico</label
+                    ><select id="select-tecnico">
+                      <option>Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-section">
+                  <div>
                     <label for="select-provincia">Provincia</label
                     ><select id="select-provincia">
                       <option>Cargando...</option>
@@ -54,8 +62,6 @@
                       <option>Seleccione...</option>
                     </select>
                   </div>
-                </div>
-                <div class="form-section">
                   <div>
                     <label for="select-agencia">Localidad / Agencia</label
                     ><select id="select-agencia" disabled>
@@ -98,7 +104,17 @@
               </div>
             </div>
             <div class="submit-container">
-              <button type="submit" id="btn-crear-tarea" disabled>
+              <!-- Botón que aparecerá solo en modo edición -->
+              <button
+                type="button"
+                id="btn-cancelar"
+                class="button-secondary"
+                style="display: none"
+              >
+                Cancelar
+              </button>
+              <!-- Botón principal que cambiará de texto -->
+              <button type="submit" id="btn-submit-form" disabled>
                 Crear Tarea
               </button>
             </div>
