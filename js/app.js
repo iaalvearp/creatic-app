@@ -1,8 +1,10 @@
 import { getCatalog, getTasks, createTask } from './api-service.js';
 
+console.log(" Módulo app.js cargado correctamente.");
+
 // --- VERIFICACIÓN DE AUTENTICACIÓN ---
-// Si no hay token, se redirige al login. Esta es nuestra "guardia".
 if (!localStorage.getItem('authToken')) {
+    console.warn(" No se encontró authToken. Redirigiendo a login.html");
     window.location.href = 'login.html';
 }
 
@@ -16,7 +18,6 @@ const form = document.getElementById('formulario-tarea');
 const taskListContainer = document.getElementById('lista-tareas-container');
 const createTaskButton = document.getElementById('btn-crear-tarea');
 
-// Selects del formulario
 const selects = {
     cliente: document.getElementById('select-cliente'),
     proyecto: document.getElementById('select-proyecto'),
@@ -27,34 +28,19 @@ const selects = {
     equipo: document.getElementById('select-equipo'),
 };
 
-// Inputs de información del equipo
 const equipoInfo = {
     nombre: document.getElementById('info-nombre-equipo'),
     caracteristicas: document.getElementById('info-caracteristicas-equipo'),
-}
+};
 
-// --- DATOS GLOBALES ---
+// --- DATOS GLOBALES (Caché de catálogos) ---
 let todosLosEquipos = [];
+let todasLasAgencias = [];
+let todasLasUnidades = [];
 
-// --- MANEJO DE PESTAÑAS ---
-function cambiarVista(vistaActiva) {
-    if (vistaActiva === 'crear') {
-        vistaCrear.classList.add('active');
-        vistaGestionar.classList.remove('active');
-        tabCrear.classList.add('active');
-        tabGestionar.classList.remove('active');
-    } else {
-        vistaCrear.classList.remove('active');
-        vistaGestionar.classList.add('active');
-        tabCrear.classList.remove('active');
-        tabGestionar.classList.add('active');
-        cargarYMostrarTareas(); // Recargamos las tareas al cambiar a esta vista
-    }
-}
-
-// --- LÓGICA DE RENDERIZADO ---
+// --- LÓGICA DE RENDERIZADO Y UTILIDADES ---
 function popularSelect(selectElement, items, { placeholder, valueKey = 'id', textKey = 'nombre' }) {
-    selectElement.innerHTML = `<option value="">${placeholder}</option>`;
+    selectElement.innerHTML = `<option value="">-- ${placeholder} --</option>`;
     items.forEach(item => {
         const option = document.createElement('option');
         option.value = item[valueKey];
@@ -62,20 +48,39 @@ function popularSelect(selectElement, items, { placeholder, valueKey = 'id', tex
         selectElement.appendChild(option);
     });
     selectElement.disabled = false;
+    console.log(` Poplado select '${selectElement.id}' con ${items.length} items.`);
+}
+
+function resetSelect(selectElement, message = 'Seleccione...') {
+    selectElement.innerHTML = `<option value="">-- ${message} --</option>`;
+    selectElement.disabled = true;
+}
+
+// --- MANEJO DE PESTAÑAS ---
+function cambiarVista(vistaActiva) {
+    console.log(`Cambiando a vista: ${vistaActiva}`);
+    vistaCrear.classList.toggle('active', vistaActiva === 'crear');
+    vistaGestionar.classList.toggle('active', vistaActiva !== 'crear');
+    tabCrear.classList.toggle('active', vistaActiva === 'crear');
+    tabGestionar.classList.toggle('active', vistaActiva !== 'crear');
+    if (vistaActiva !== 'crear') {
+        cargarYMostrarTareas();
+    }
 }
 
 async function cargarYMostrarTareas() {
     taskListContainer.innerHTML = '<p>Cargando tareas...</p>';
     try {
+        console.log(" Pidiendo tareas a la API...");
         const tareas = await getTasks();
+        console.log(" Tareas recibidas:", tareas);
         if (tareas.length === 0) {
             taskListContainer.innerHTML = '<p>No hay tareas creadas todavía.</p>';
             return;
         }
 
-        taskListContainer.innerHTML = ''; // Limpiamos el contenedor
+        taskListContainer.innerHTML = '';
         tareas.forEach(tarea => {
-            // Creamos la tarjeta de la tarea
             const card = document.createElement('div');
             card.className = 'task-card';
             card.innerHTML = `
@@ -94,54 +99,99 @@ async function cargarYMostrarTareas() {
             `;
             taskListContainer.appendChild(card);
         });
-
     } catch (error) {
-        console.error(error);
+        console.error(" Fallo al cargar tareas:", error);
         taskListContainer.innerHTML = '<p class="error-message">Error al cargar las tareas.</p>';
     }
 }
 
 // --- LÓGICA DE FORMULARIO Y CASCADA ---
 async function inicializarFormulario() {
+    console.log(" Iniciando carga de catálogos para el formulario...");
     try {
-        const [clientes, provincias] = await Promise.all([
+        const [clientes, provincias, unidades] = await Promise.all([
             getCatalog('clientes'),
             getCatalog('provincias'),
+            getCatalog('unidades_negocio'),
         ]);
-        popularSelect(selects.cliente, clientes, { placeholder: 'Seleccione un cliente' });
+        console.log(" Catálogos iniciales recibidos:", { clientes, provincias, unidades });
+
+        todasLasUnidades = unidades;
+        popularSelect(selects.cliente, clientes, { placeholder: 'Seleccione un cliente', textKey: 'nombre_completo' });
         popularSelect(selects.provincia, provincias, { placeholder: 'Seleccione una provincia' });
     } catch (error) {
-        console.error('Error inicializando el formulario:', error);
+        console.error('Error fatal inicializando el formulario:', error);
+        alert('No se pudieron cargar los datos iniciales. Revise la consola para más detalles.');
     }
 }
 
+selects.cliente.addEventListener('change', async (e) => {
+    const clienteId = e.target.value;
+    resetSelect(selects.proyecto, 'Seleccione un cliente...');
+    if (clienteId) {
+        console.log(`Cliente seleccionado: ${clienteId}. Pidiendo proyectos...`);
+        const params = new URLSearchParams({ cliente_id: clienteId });
+        const proyectos = await getCatalog('proyectos', params);
+        popularSelect(selects.proyecto, proyectos, { placeholder: 'Seleccione un proyecto' });
+    }
+});
+
 selects.provincia.addEventListener('change', async (e) => {
     const provinciaId = e.target.value;
-    // Resetear selects dependientes
-    selects.ciudad.innerHTML = '<option>Cargando...</option>';
-    selects.ciudad.disabled = true;
-
+    resetSelect(selects.ciudad, 'Seleccione una provincia...');
+    resetSelect(selects.agencia, 'Seleccione una ciudad...');
+    resetSelect(selects.equipo, 'Seleccione una agencia...');
     if (provinciaId) {
+        console.log(`Provincia seleccionada: ${provinciaId}. Pidiendo ciudades...`);
         const params = new URLSearchParams({ provincia_id: provinciaId });
         const ciudades = await getCatalog('ciudades', params);
         popularSelect(selects.ciudad, ciudades, { placeholder: 'Seleccione una ciudad' });
     }
 });
 
+selects.ciudad.addEventListener('change', async (e) => {
+    const ciudadId = e.target.value;
+    resetSelect(selects.agencia, 'Seleccione una ciudad...');
+    resetSelect(selects.equipo, 'Seleccione una agencia...');
+    if (ciudadId) {
+        console.log(`Ciudad seleccionada: ${ciudadId}. Pidiendo agencias...`);
+        const params = new URLSearchParams({ ciudad_id: ciudadId });
+        const agencias = await getCatalog('agencias', params);
+        todasLasAgencias = agencias;
+        popularSelect(selects.agencia, agencias, { placeholder: 'Seleccione una agencia' });
+    }
+});
+
 selects.agencia.addEventListener('change', async (e) => {
     const agenciaId = e.target.value;
-    selects.equipo.innerHTML = '<option>Cargando...</option>';
-    selects.equipo.disabled = true;
+    resetSelect(selects.equipo, 'Seleccione una agencia...');
+    resetSelect(selects.unidadNegocio, 'Seleccione...');
+
+    const agenciaSeleccionada = todasLasAgencias.find(a => a.id == agenciaId);
+    if (agenciaSeleccionada) {
+        const unidad = todasLasUnidades.find(u => u.id === agenciaSeleccionada.unidad_negocio_id);
+        if (unidad) {
+            popularSelect(selects.unidadNegocio, [unidad], { placeholder: unidad.nombre });
+            selects.unidadNegocio.value = unidad.id; // La pre-seleccionamos
+        }
+    }
 
     if (agenciaId) {
+        console.log(`Agencia seleccionada: ${agenciaId}. Pidiendo equipos...`);
         const params = new URLSearchParams({ agencia_id: agenciaId });
         todosLosEquipos = await getCatalog('equipos', params);
-        popularSelect(selects.equipo, todosLosEquipos, { placeholder: 'Seleccione un Nº de Serie' });
+        // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
+        // Le decimos explícitamente que use el 'id' para el texto visible.
+        popularSelect(selects.equipo, todosLosEquipos, { placeholder: 'Seleccione un Nº de Serie', textKey: 'id' });
     }
 });
 
 selects.equipo.addEventListener('change', (e) => {
     const equipoId = e.target.value;
+    equipoInfo.nombre.value = '';
+    equipoInfo.caracteristicas.value = '';
+    createTaskButton.disabled = true;
+
     if (equipoId) {
         const equipoSeleccionado = todosLosEquipos.find(eq => eq.id === equipoId);
         if (equipoSeleccionado) {
@@ -149,25 +199,14 @@ selects.equipo.addEventListener('change', (e) => {
             equipoInfo.caracteristicas.value = `${equipoSeleccionado.modelo} - ${equipoSeleccionado.caracteristicas}`;
             createTaskButton.disabled = false;
         }
-    } else {
-        equipoInfo.nombre.value = '';
-        equipoInfo.caracteristicas.value = '';
-        createTaskButton.disabled = true;
     }
 });
-
-// Lógica de cascada simplificada (para proyectos, unidades, agencias)
-// En una app real, esta lógica sería más compleja y se basaría en más llamadas a la API
-selects.cliente.addEventListener('change', () => { selects.proyecto.disabled = false; });
-selects.ciudad.addEventListener('change', () => { selects.agencia.disabled = false; selects.unidadNegocio.disabled = false; });
-
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     createTaskButton.disabled = true;
     createTaskButton.textContent = 'Creando...';
 
-    // Recolectamos todos los datos del formulario
     const taskData = {
         cliente_id: selects.cliente.value,
         cliente_nombre: selects.cliente.options[selects.cliente.selectedIndex].text,
@@ -180,24 +219,23 @@ form.addEventListener('submit', async (e) => {
         equipo_id: selects.equipo.value,
         equipo_nombre: equipoInfo.nombre.value,
     };
+    console.log("Enviando nueva tarea:", taskData);
 
     try {
         await createTask(taskData);
         alert('¡Tarea creada con éxito!');
-        form.reset(); // Limpiamos el formulario
-        // Resetear selects a su estado inicial
-        Object.values(selects).forEach(s => s.disabled = true);
+        form.reset();
+        Object.values(selects).forEach(s => resetSelect(s));
         inicializarFormulario();
-        cambiarVista('gestionar'); // Cambiamos a la vista de gestión para ver la nueva tarea
+        cambiarVista('gestionar');
     } catch (error) {
-        console.error(error);
         alert('Hubo un error al crear la tarea.');
+        console.error("Fallo al crear tarea:", error);
     } finally {
         createTaskButton.disabled = false;
         createTaskButton.textContent = 'Crear Tarea';
     }
 });
-
 
 // --- INICIALIZACIÓN ---
 logoutButton.addEventListener('click', () => {
@@ -210,3 +248,4 @@ tabGestionar.addEventListener('click', () => cambiarVista('gestionar'));
 
 // Iniciar la aplicación
 inicializarFormulario();
+
