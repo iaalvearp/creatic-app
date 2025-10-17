@@ -28,6 +28,10 @@ body {
   min-height: 100vh;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* --- ESTILOS DE LOGIN --- */
 .login-body {
   display: flex;
@@ -253,7 +257,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ¡NUEVO ESTILO! Para el botón de cancelar */
 .button-secondary {
   background-color: var(--color-fondo-input);
   color: var(--color-texto-claro);
@@ -281,6 +284,12 @@ button:disabled {
   box-shadow: var(--sombra);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 .task-card-header {
   display: flex;
@@ -300,13 +309,12 @@ button:disabled {
   border-radius: 9999px;
   color: var(--color-blanco);
 }
-.task-card-status.Creado {
+.task-card-status.Creado,
+.task-card-status.Asignado {
   background-color: #3b82f6;
 } /* blue-500 */
-.task-card-status.Asignado {
-  background-color: #f97316;
-} /* orange-500 */
-.task-card-status.Realizado {
+.task-card-status.Realizado,
+.task-card-status.Completado {
   background-color: #22c55e;
 } /* green-500 */
 .task-card-status.NUEVO {
@@ -338,13 +346,147 @@ button:disabled {
 }
 .task-card-button.edit {
   background-color: #3b82f6;
-} /* blue-500 */
+}
 .task-card-button.edit:hover {
   background-color: #2563eb;
-} /* blue-600 */
+}
 .task-card-button.delete {
   background-color: var(--color-error);
 }
 .task-card-button.delete:hover {
   background-color: #dc2626;
-} /* red-600 */
+}
+
+/* --- ¡NUEVOS ESTILOS PARA LA FICHA DE INFORME! --- */
+.ficha-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--color-fondo-tarjeta);
+  border-radius: 0.5rem;
+  box-shadow: var(--sombra);
+}
+
+.ficha-mantenimiento {
+  background-color: var(--color-blanco);
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--sombra);
+  font-size: 12px; /* Base font size similar to PDF */
+  color: #000;
+}
+
+.ficha-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.ficha-logo {
+  height: 50px;
+}
+.ficha-logo-cnel {
+  height: 5rem;
+}
+.ficha-title-container {
+  text-align: center;
+}
+.ficha-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.ficha-subtitle {
+  font-size: 0.8rem;
+}
+
+.ficha-section {
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+}
+.ficha-section h3 {
+  background-color: #d9d9d9; /* Gris del PDF */
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid #000;
+}
+.ficha-section h4 {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem;
+}
+.info-item {
+  padding: 0.25rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.info-item.full-width {
+  grid-column: span 2;
+}
+.info-item label {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.info-item span {
+  border-bottom: 1px dotted #000;
+  flex-grow: 1;
+}
+
+.actividades-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background-color: #000;
+  border-top: 1px solid #000;
+}
+.actividades-col {
+  background-color: var(--color-blanco);
+  padding: 0.5rem;
+}
+.actividades-col textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 11px;
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+}
+.actividades-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.actividades-table td {
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+}
+.actividades-table td:first-child {
+  width: 20px;
+  text-align: center;
+}
+.actividades-table td:last-child {
+  width: 30px;
+  text-align: center;
+}
+.actividades-table input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.fotos-grid {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  min-height: 100px;
+  border: 1px dashed var(--color-borde);
+  margin: 0.5rem;
+  border-radius: 0.25rem;
+}

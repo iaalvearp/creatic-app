@@ -10,13 +10,19 @@ if (!localStorage.getItem('authToken')) {
 const logoutButton = document.getElementById('logout-button');
 const tabCrear = document.getElementById('tab-crear');
 const tabGestionar = document.getElementById('tab-gestionar');
+const tabInformes = document.getElementById('tab-informes');
 const vistaCrear = document.getElementById('vista-crear');
 const vistaGestionar = document.getElementById('vista-gestionar');
+const vistaInformes = document.getElementById('vista-informes');
 const form = document.getElementById('formulario-tarea');
 const taskListContainer = document.getElementById('lista-tareas-container');
+const informesListContainer = document.getElementById('lista-informes-container');
+const fichaContainer = document.getElementById('ficha-container');
+const btnVolverLista = document.getElementById('btn-volver-lista');
 const submitButton = document.getElementById('btn-submit-form');
 const cancelButton = document.getElementById('btn-cancelar');
 const formTitle = document.getElementById('form-title');
+const informesHeader = document.querySelector('#vista-informes .gestion-header');
 
 const selects = {
     cliente: document.getElementById('select-cliente'),
@@ -34,10 +40,30 @@ const equipoInfo = {
     caracteristicas: document.getElementById('info-caracteristicas-equipo'),
 };
 
+
 // --- ESTADO GLOBAL ---
 let modoFormulario = 'crear';
 let idTareaEditando = null;
 let todosLosDatosDeCatalogos = {};
+let tareasCompletadasSimuladas = [];
+
+// --- LÓGICA DE DATOS SIMULADOS ---
+function simularDatosDeTecnico(tarea) {
+    const datosSimulados = {
+        ...tarea,
+        estado: 'Completado',
+        fecha_completado: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+        observaciones_preventivo: 'Se realizó limpieza general del equipo y organización del cableado. No se encontraron alarmas visuales.',
+        observaciones_correctivo: 'N/A',
+        actividades_preventivo: [1, 2, 4, 5, 6, 8],
+        actividades_correctivo: [],
+        actividades_diagnostico: [1, 2, 3, 5, 6],
+        fotos_preventivo: ['assets/logo.png', 'assets/favicon.png'],
+        fotos_correctivo: [],
+    };
+    return datosSimulados;
+}
+
 
 // --- LÓGICA DE RENDERIZADO Y UTILIDADES ---
 function popularSelect(selectElement, items, { placeholder, valueKey = 'id', textKey = 'nombre' }) {
@@ -56,24 +82,31 @@ function resetSelect(selectElement, message = 'Seleccione...') {
     selectElement.disabled = true;
 }
 
-// --- MANEJO DE PESTAÑAS ---
+// --- MANEJO DE PESTAÑAS Y VISTAS ---
 function cambiarVista(vistaActiva) {
     vistaCrear.classList.toggle('active', vistaActiva === 'crear');
-    vistaGestionar.classList.toggle('active', vistaActiva !== 'crear');
+    vistaGestionar.classList.toggle('active', vistaActiva === 'gestionar');
+    vistaInformes.classList.toggle('active', vistaActiva === 'informes');
+
     tabCrear.classList.toggle('active', vistaActiva === 'crear');
-    tabGestionar.classList.toggle('active', vistaActiva !== 'crear');
-    if (vistaActiva !== 'crear') {
-        cargarYMostrarTareas();
+    tabGestionar.classList.toggle('active', vistaActiva === 'gestionar');
+    tabInformes.classList.toggle('active', vistaActiva === 'informes');
+
+    if (vistaActiva !== 'ficha') {
+        fichaContainer.classList.add('hidden');
+        informesHeader.classList.remove('hidden');
+        informesListContainer.classList.remove('hidden');
     }
+
+    if (vistaActiva === 'gestionar') cargarYMostrarTareas();
+    if (vistaActiva === 'informes') cargarTareasParaInformes();
 }
 
+// --- LÓGICA DE LA PESTAÑA "GESTIONAR" ---
 async function cargarYMostrarTareas() {
     taskListContainer.innerHTML = '<p>Cargando tareas...</p>';
     try {
-        if (Object.keys(todosLosDatosDeCatalogos).length === 0) {
-            await inicializarAplicacion();
-        }
-
+        if (Object.keys(todosLosDatosDeCatalogos).length === 0) await inicializarAplicacion();
         const tareas = await getTasks();
         if (tareas.length === 0) {
             taskListContainer.innerHTML = '<p>No hay tareas creadas todavía.</p>';
@@ -107,23 +140,83 @@ async function cargarYMostrarTareas() {
             taskListContainer.appendChild(card);
         });
     } catch (error) {
-        console.error("Error en cargarYMostrarTareas:", error);
         taskListContainer.innerHTML = '<p class="error-message">Error al cargar las tareas.</p>';
     }
 }
 
-// --- LÓGICA DE FORMULARIO MEJORADA ---
+// --- LÓGICA DE LA PESTAÑA "INFORMES" ---
+async function cargarTareasParaInformes() {
+    informesListContainer.innerHTML = '<p>Cargando tareas...</p>';
+    try {
+        if (Object.keys(todosLosDatosDeCatalogos).length === 0) await inicializarAplicacion();
 
+        const tareas = await getTasks();
+        tareasCompletadasSimuladas = tareas.map(simularDatosDeTecnico);
+
+        const tareasCompletadas = tareasCompletadasSimuladas.filter(t => t.estado === 'Completado');
+
+        if (tareasCompletadas.length === 0) {
+            informesListContainer.innerHTML = '<p>No hay tareas completadas para generar informes.</p>';
+            return;
+        }
+
+        informesListContainer.innerHTML = '';
+        tareasCompletadas.forEach(tarea => {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.dataset.taskData = JSON.stringify(tarea);
+            const ciudadData = todosLosDatosDeCatalogos.ciudades?.find(c => c.id == tarea.ciudad_id) || {};
+            card.innerHTML = `
+                <div class="task-card-header">
+                    <h3 class="task-card-title">${tarea.equipo_nombre}</h3>
+                    <span class="task-card-status Completado">Completado</span>
+                </div>
+                <div class="task-card-body">
+                    <p><strong>Nº Serie:</strong> ${tarea.equipo_id}</p>
+                    <p><strong>Ciudad:</strong> ${ciudadData.nombre || 'N/A'}</p>
+                    <p><strong>Técnico:</strong> ${tarea.tecnico_nombre}</p>
+                    <p><strong>Fecha:</strong> ${tarea.fecha_completado}</p>
+                </div>
+            `;
+            informesListContainer.appendChild(card);
+        });
+    } catch (error) {
+        informesListContainer.innerHTML = '<p class="error-message">Error al cargar las tareas.</p>';
+    }
+}
+
+function mostrarFichaDeMantenimiento(tarea) {
+    informesHeader.classList.add('hidden');
+    informesListContainer.classList.add('hidden');
+    fichaContainer.classList.remove('hidden');
+
+    document.getElementById('info-cliente').textContent = tarea.cliente_nombre;
+    document.getElementById('info-fecha').textContent = tarea.fecha_completado;
+    document.getElementById('info-proyecto').textContent = todosLosDatosDeCatalogos.proyectos.find(p => p.id == tarea.proyecto_id)?.nombre || 'N/A';
+    document.getElementById('info-provincia').textContent = todosLosDatosDeCatalogos.provincias.find(p => p.id == tarea.provincia_id)?.nombre || 'N/A';
+    document.getElementById('info-ciudad').textContent = todosLosDatosDeCatalogos.ciudades.find(c => c.id == tarea.ciudad_id)?.nombre || 'N/A';
+    document.getElementById('info-unidad-negocio').textContent = todosLosDatosDeCatalogos.unidades_negocio.find(u => u.id == tarea.unidad_negocio_id)?.nombre || 'N/A';
+    document.getElementById('info-agencia').textContent = tarea.agencia_nombre;
+
+    const equipo = todosLosDatosDeCatalogos.equipos.find(e => e.id === tarea.equipo_id);
+    document.getElementById('info-tipo-equipo').textContent = equipo?.nombre || 'N/A';
+    document.getElementById('info-modelo-equipo').textContent = equipo?.modelo || 'N/A';
+    document.getElementById('info-serie-equipo').textContent = tarea.equipo_id;
+
+    document.getElementById('obs-preventivo').value = tarea.observaciones_preventivo;
+    document.getElementById('obs-correctivo').value = tarea.observaciones_correctivo;
+}
+
+
+// --- LÓGICA DE FORMULARIO (Crear/Editar) ---
 function resetFormularioAModoCrear() {
     form.reset();
 
-    // Repoblamos los selects principales desde la caché, sin llamar a la API
     popularSelect(selects.cliente, todosLosDatosDeCatalogos.clientes || [], { placeholder: 'Seleccione un cliente', textKey: 'nombre_completo' });
     popularSelect(selects.provincia, todosLosDatosDeCatalogos.provincias || [], { placeholder: 'Seleccione una provincia' });
     popularSelect(selects.tecnico, todosLosDatosDeCatalogos.tecnicos || [], { placeholder: 'Seleccione un técnico' });
     selects.tecnico.disabled = false;
 
-    // Reseteamos los selects dependientes
     resetSelect(selects.proyecto, 'Seleccione un cliente...');
     resetSelect(selects.ciudad, 'Seleccione una provincia...');
     resetSelect(selects.agencia, 'Seleccione una ciudad...');
@@ -171,7 +264,8 @@ async function prepararFormularioParaEditar(tarea) {
     selects.tecnico.value = tarea.tecnico_id;
 }
 
-// Esta función ahora solo se llamará una vez al inicio.
+
+// --- INICIALIZACIÓN Y EVENTOS ---
 async function inicializarAplicacion() {
     try {
         const catalogosAObtener = [
@@ -185,9 +279,7 @@ async function inicializarAplicacion() {
             todosLosDatosDeCatalogos[nombre] = resultados[index];
         });
 
-        // Una vez que tenemos todos los datos, reseteamos el formulario a su estado inicial.
         resetFormularioAModoCrear();
-
     } catch (error) {
         console.error('Error fatal inicializando catálogos:', error);
         alert('No se pudieron cargar los datos iniciales. Por favor, recargue la página.');
@@ -333,12 +425,26 @@ logoutButton.addEventListener('click', () => {
     window.location.href = 'login.html';
 });
 tabCrear.addEventListener('click', () => {
-    // Lógica simplificada y robusta para el tab
     resetFormularioAModoCrear();
     cambiarVista('crear');
 });
 tabGestionar.addEventListener('click', () => cambiarVista('gestionar'));
+tabInformes.addEventListener('click', () => cambiarVista('informes'));
 
-// --- INICIALIZACIÓN ---
+btnVolverLista.addEventListener('click', () => {
+    informesHeader.classList.remove('hidden');
+    informesListContainer.classList.remove('hidden');
+    fichaContainer.classList.add('hidden');
+});
+
+informesListContainer.addEventListener('click', (e) => {
+    const card = e.target.closest('.task-card');
+    if (card && card.dataset.taskData) {
+        const tarea = JSON.parse(card.dataset.taskData);
+        mostrarFichaDeMantenimiento(tarea);
+    }
+});
+
+// --- INICIALIZACIÓN DE LA APP ---
 inicializarAplicacion();
 

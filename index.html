@@ -14,20 +14,20 @@
         <button id="logout-button">Cerrar Sesión</button>
       </header>
 
-      <!-- Pestañas de Navegación -->
+      <!-- Pestañas de Navegación (con la nueva pestaña de Informes) -->
       <nav class="tabs">
-        <button id="tab-crear" class="tab-button active">Crear Tarea</button>
+        <button id="tab-crear" class="tab-button active">Crear / Editar</button>
         <button id="tab-gestionar" class="tab-button">Gestionar Tareas</button>
+        <button id="tab-informes" class="tab-button">Informes</button>
       </nav>
 
       <!-- Contenido de las Pestañas -->
       <main>
-        <!-- Vista para Crear Tarea (inicialmente visible) -->
+        <!-- Vista para Crear Tarea -->
         <div id="vista-crear" class="tab-content active">
           <form id="formulario-tarea">
-            <!-- SECCIÓN 1: INFORMACIÓN GENERAL -->
             <div>
-              <h2>Información General</h2>
+              <h2 id="form-title">Información General</h2>
               <div class="grid-container">
                 <div class="form-section">
                   <div>
@@ -77,7 +77,6 @@
                 </div>
               </div>
             </div>
-            <!-- SECCIÓN 2: INFORMACIÓN DE EQUIPO -->
             <div>
               <h2>Información de Equipo</h2>
               <div class="grid-container">
@@ -104,7 +103,6 @@
               </div>
             </div>
             <div class="submit-container">
-              <!-- Botón que aparecerá solo en modo edición -->
               <button
                 type="button"
                 id="btn-cancelar"
@@ -113,7 +111,6 @@
               >
                 Cancelar
               </button>
-              <!-- Botón principal que cambiará de texto -->
               <button type="submit" id="btn-submit-form" disabled>
                 Crear Tarea
               </button>
@@ -121,15 +118,138 @@
           </form>
         </div>
 
-        <!-- Vista para Gestionar Tareas (inicialmente oculta) -->
+        <!-- Vista para Gestionar Tareas -->
         <div id="vista-gestionar" class="tab-content">
           <div class="gestion-header">
             <h2>Tareas Creadas</h2>
             <p>Aquí puedes ver, editar o eliminar las tareas asignadas.</p>
           </div>
           <div id="lista-tareas-container" class="task-list">
-            <!-- Las tareas se insertarán aquí con JavaScript -->
             <p>Cargando tareas...</p>
+          </div>
+        </div>
+
+        <!-- ¡NUEVA VISTA PARA INFORMES! -->
+        <div id="vista-informes" class="tab-content">
+          <div class="gestion-header">
+            <h2>Generación de Informes</h2>
+            <p>
+              Seleccione una tarea completada para generar la ficha de
+              mantenimiento.
+            </p>
+          </div>
+          <div id="lista-informes-container" class="task-list">
+            <p>Cargando tareas completadas...</p>
+          </div>
+
+          <div id="ficha-container" class="hidden">
+            <div class="ficha-actions">
+              <button id="btn-volver-lista" class="button-secondary">
+                ← Volver a la lista
+              </button>
+              <button id="btn-exportar-pdf">Exportar a PDF</button>
+            </div>
+            <div id="ficha-mantenimiento" class="ficha-mantenimiento">
+              <div class="ficha-header">
+                <img
+                  src="assets/logo.png"
+                  alt="Logo CreaTIC"
+                  class="ficha-logo"
+                />
+                <div class="ficha-title-container">
+                  <h2 class="ficha-title">FICHA DE MANTENIMIENTO</h2>
+                  <p class="ficha-subtitle">
+                    CONTRATO Nro. CNEL-OFC-GJ-006-2024
+                  </p>
+                </div>
+                <img
+                  src="./assets/cnel.png"
+                  alt="Logo CNEL"
+                  class="ficha-logo-cnel"
+                />
+              </div>
+              <div class="ficha-section">
+                <h3>INFORMACIÓN GENERAL</h3>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <label>CLIENTE:</label><span id="info-cliente"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>FECHA (DD MM AAAA):</label
+                    ><span id="info-fecha"></span>
+                  </div>
+                  <div class="info-item full-width">
+                    <label>NOMBRE DEL PROYECTO:</label
+                    ><span id="info-proyecto"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>PROVINCIA:</label><span id="info-provincia"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>CIUDAD:</label><span id="info-ciudad"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>NOMBRE UNIDAD DE NEGOCIO:</label
+                    ><span id="info-unidad-negocio"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>AGENCIA, OFICINA, SUBESTACIÓN:</label
+                    ><span id="info-agencia"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ficha-section">
+                <h3>INFORMACIÓN DE EQUIPO</h3>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <label>TIPO DE EQUIPO:</label
+                    ><span id="info-tipo-equipo"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>MODELO DEL EQUIPO:</label
+                    ><span id="info-modelo-equipo"></span>
+                  </div>
+                  <div class="info-item full-width">
+                    <label>NÚMERO DE SERIE DEL EQUIPO:</label
+                    ><span id="info-serie-equipo"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ficha-section">
+                <h3>ACTIVIDADES DE MANTENIMIENTO</h3>
+                <div class="actividades-grid">
+                  <div class="actividades-col">
+                    <h4>PREVENTIVO</h4>
+                    <table
+                      class="actividades-table"
+                      id="tabla-preventivo"
+                    ></table>
+                    <label>OBSERVACIONES / RECOMENDACIONES</label>
+                    <textarea id="obs-preventivo" rows="4"></textarea>
+                  </div>
+                  <div class="actividades-col">
+                    <h4>CORRECTIVO</h4>
+                    <table
+                      class="actividades-table"
+                      id="tabla-correctivo"
+                    ></table>
+                    <label>OBSERVACIONES / RECOMENDACIONES</label>
+                    <textarea id="obs-correctivo" rows="4"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="ficha-section">
+                <h3>TAREAS DE DIAGNÓSTICO</h3>
+                <table class="actividades-table" id="tabla-diagnostico"></table>
+              </div>
+              <div class="ficha-section">
+                <h3>REPORTE FOTOGRÁFICO</h3>
+                <h4>MANTENIMIENTO PREVENTIVO</h4>
+                <div id="fotos-preventivo" class="fotos-grid"></div>
+                <h4>MANTENIMIENTO CORRECTIVO</h4>
+                <div id="fotos-correctivo" class="fotos-grid"></div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
