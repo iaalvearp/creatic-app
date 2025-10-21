@@ -1,6 +1,6 @@
 // creaticWeb/js/api-service.js
 // --- PUNTO CENTRAL DE CONFIGURACIÓN ---
-const ENTORNO = 'mock'; // Cambia a 'produccion' cuando sea necesario
+const ENTORNO = 'produccion'; // Cambia a 'produccion' cuando sea necesario
 const CONFIG = {
     mock: { BASE_URL: 'https://api-mock.iaalvearp.workers.dev' },
     produccion: { BASE_URL: 'http://184.174.39.191:8000' }
