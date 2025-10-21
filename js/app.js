@@ -1,4 +1,3 @@
-// creaticWeb/js/app.js
 import { getCatalog, getTasks, createTask, updateTask, deleteTask } from './api-service.js';
 
 // --- VERIFICACIÓN DE AUTENTICACIÓN ---
@@ -19,7 +18,7 @@ const taskListContainer = document.getElementById('lista-tareas-container');
 const informesListContainer = document.getElementById('lista-informes-container');
 const fichaContainer = document.getElementById('ficha-container');
 const btnVolverLista = document.getElementById('btn-volver-lista');
-const btnExportarPDF = document.getElementById('btn-exportar-pdf'); // Nuevo botón
+const btnExportarPDF = document.getElementById('btn-exportar-pdf');
 const submitButton = document.getElementById('btn-submit-form');
 const cancelButton = document.getElementById('btn-cancelar');
 const formTitle = document.getElementById('form-title');
@@ -95,8 +94,8 @@ function cambiarVista(vistaActiva) {
 
     if (vistaActiva !== 'ficha') {
         fichaContainer.classList.add('hidden');
-        informesHeader.classList.remove('hidden');
-        informesListContainer.classList.remove('hidden');
+        if (informesHeader) informesHeader.classList.remove('hidden');
+        if (informesListContainer) informesListContainer.classList.remove('hidden');
     }
 
     if (vistaActiva === 'gestionar') cargarYMostrarTareas();
@@ -187,10 +186,11 @@ async function cargarTareasParaInformes() {
 }
 
 function mostrarFichaDeMantenimiento(tarea) {
-    informesHeader.classList.add('hidden');
-    informesListContainer.classList.add('hidden');
+    if (informesHeader) informesHeader.classList.add('hidden');
+    if (informesListContainer) informesListContainer.classList.add('hidden');
     fichaContainer.classList.remove('hidden');
 
+    // Poblar información general y de equipo
     document.getElementById('info-cliente').textContent = tarea.cliente_nombre;
     document.getElementById('info-fecha').textContent = tarea.fecha_completado;
     document.getElementById('info-proyecto').textContent = todosLosDatosDeCatalogos.proyectos.find(p => p.id == tarea.proyecto_id)?.nombre || 'N/A';
@@ -206,10 +206,50 @@ function mostrarFichaDeMantenimiento(tarea) {
 
     document.getElementById('obs-preventivo').value = tarea.observaciones_preventivo;
     document.getElementById('obs-correctivo').value = tarea.observaciones_correctivo;
+
+    // --- ¡NUEVA LÓGICA PARA POBLAR TABLAS Y FOTOS! ---
+
+    // 1. Resetear todas las checkboxes
+    document.querySelectorAll('#ficha-mantenimiento input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+    // 2. Marcar las checkboxes según los datos de la tarea
+    tarea.actividades_preventivo.forEach(id => {
+        const checkbox = document.querySelector(`#tabla-preventivo input[data-activity-id="${id}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+    tarea.actividades_correctivo.forEach(id => {
+        const checkbox = document.querySelector(`#tabla-correctivo input[data-activity-id="${id}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+    tarea.actividades_diagnostico.forEach(id => {
+        const checkbox = document.querySelector(`#tabla-diagnostico input[data-activity-id="${id}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+
+    // 3. Poblar las galerías de fotos
+    const galeriaPreventivo = document.getElementById('fotos-preventivo');
+    galeriaPreventivo.innerHTML = ''; // Limpiar galería anterior
+    if (tarea.fotos_preventivo && tarea.fotos_preventivo.length > 0) {
+        tarea.fotos_preventivo.forEach(url => {
+            galeriaPreventivo.innerHTML += `<div class="foto-item"><img src="${url}" alt="Foto Preventivo"></div>`;
+        });
+    } else {
+        galeriaPreventivo.innerHTML = '<p class="no-fotos">No hay fotos para este mantenimiento.</p>';
+    }
+
+    const galeriaCorrectivo = document.getElementById('fotos-correctivo');
+    galeriaCorrectivo.innerHTML = '';
+    if (tarea.fotos_correctivo && tarea.fotos_correctivo.length > 0) {
+        tarea.fotos_correctivo.forEach(url => {
+            galeriaCorrectivo.innerHTML += `<div class="foto-item"><img src="${url}" alt="Foto Correctivo"></div>`;
+        });
+    } else {
+        galeriaCorrectivo.innerHTML = '<p class="no-fotos">No hay fotos para este mantenimiento.</p>';
+    }
 }
 
+
 /**
- * ¡NUEVA FUNCIÓN!
  * Genera un PDF a partir de la ficha de mantenimiento visible.
  */
 async function exportarFichaComoPDF() {
@@ -224,41 +264,27 @@ async function exportarFichaComoPDF() {
 
     try {
         const canvas = await html2canvas(fichaElement, {
-            scale: 2, // Aumenta la resolución de la captura
-            useCORS: true, // Necesario para cargar imágenes externas como la de CNEL
+            scale: 2,
+            useCORS: true,
             logging: false,
         });
 
         const imgData = canvas.toDataURL('image/png');
-
-        // Creamos el PDF en tamaño A4
-        const pdf = new jsPDF({
-            orientation: 'portrait',
-            unit: 'mm',
-            format: 'a4'
-        });
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const ratio = canvasHeight / canvasWidth;
-
-        // Calculamos las dimensiones de la imagen para que encaje en el ancho de la página
+        const ratio = canvas.height / canvas.width;
         let imgWidth = pdfWidth;
         let imgHeight = pdfWidth * ratio;
 
-        // Si la imagen es más alta que la página, la ajustamos para que no se corte
         if (imgHeight > pdfHeight) {
             imgHeight = pdfHeight;
             imgWidth = imgHeight / ratio;
         }
 
-        // Centramos la imagen en la página (opcional)
         const x = (pdfWidth - imgWidth) / 2;
-        const y = 0;
-
-        pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'PNG', x, 0, imgWidth, imgHeight);
         pdf.save(fileName);
 
     } catch (error) {
@@ -269,6 +295,7 @@ async function exportarFichaComoPDF() {
         btnExportarPDF.textContent = 'Exportar a PDF';
     }
 }
+
 
 // --- LÓGICA DE FORMULARIO (Crear/Editar) ---
 function resetFormularioAModoCrear() {
@@ -326,7 +353,6 @@ async function prepararFormularioParaEditar(tarea) {
     selects.tecnico.value = tarea.tecnico_id;
 }
 
-
 // --- INICIALIZACIÓN Y EVENTOS ---
 async function inicializarAplicacion() {
     try {
@@ -381,7 +407,6 @@ selects.agencia.addEventListener('change', (e) => {
     resetSelect(selects.equipo, 'Seleccione una agencia...');
     const agenciaSeleccionada = todosLosDatosDeCatalogos.agencias?.find(a => a.id == agenciaId);
     if (agenciaSeleccionada) {
-        // ¡CORRECCIÓN DEL TYPO!
         const unidad = todosLosDatosDeCatalogos.unidades_negocio.find(u => u.id === agenciaSeleccionada.unidad_negocio_id);
         if (unidad) {
             popularSelect(selects.unidadNegocio, [unidad], { placeholder: unidad.nombre });
@@ -494,11 +519,10 @@ tabGestionar.addEventListener('click', () => cambiarVista('gestionar'));
 tabInformes.addEventListener('click', () => cambiarVista('informes'));
 
 btnVolverLista.addEventListener('click', () => {
-    informesHeader.classList.remove('hidden');
-    informesListContainer.classList.remove('hidden');
+    if (informesHeader) informesHeader.classList.remove('hidden');
+    if (informesListContainer) informesListContainer.classList.remove('hidden');
     fichaContainer.classList.add('hidden');
 });
-
 
 informesListContainer.addEventListener('click', (e) => {
     const card = e.target.closest('.task-card');
@@ -509,6 +533,7 @@ informesListContainer.addEventListener('click', (e) => {
 });
 
 btnExportarPDF.addEventListener('click', exportarFichaComoPDF);
+
 
 // --- INICIALIZACIÓN DE LA APP ---
 inicializarAplicacion();

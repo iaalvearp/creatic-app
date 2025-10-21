@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CreaTIC</title>
-    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
@@ -14,16 +14,14 @@
         <button id="logout-button">Cerrar Sesión</button>
       </header>
 
-      <!-- Pestañas de Navegación (con la nueva pestaña de Informes) -->
       <nav class="tabs">
         <button id="tab-crear" class="tab-button active">Crear / Editar</button>
         <button id="tab-gestionar" class="tab-button">Gestionar Tareas</button>
         <button id="tab-informes" class="tab-button">Informes</button>
       </nav>
 
-      <!-- Contenido de las Pestañas -->
       <main>
-        <!-- Vista para Crear Tarea -->
+        <!-- {/* --- Vistas de Crear y Gestionar (sin cambios) --- */} -->
         <div id="vista-crear" class="tab-content active">
           <form id="formulario-tarea">
             <div>
@@ -117,8 +115,6 @@
             </div>
           </form>
         </div>
-
-        <!-- Vista para Gestionar Tareas -->
         <div id="vista-gestionar" class="tab-content">
           <div class="gestion-header">
             <h2>Tareas Creadas</h2>
@@ -129,7 +125,7 @@
           </div>
         </div>
 
-        <!-- ¡NUEVA VISTA PARA INFORMES! -->
+        <!-- {/* --- VISTA DE INFORMES ACTUALIZADA --- */} -->
         <div id="vista-informes" class="tab-content">
           <div class="gestion-header">
             <h2>Generación de Informes</h2>
@@ -220,19 +216,160 @@
                 <div class="actividades-grid">
                   <div class="actividades-col">
                     <h4>PREVENTIVO</h4>
-                    <table
-                      class="actividades-table"
-                      id="tabla-preventivo"
-                    ></table>
+                    <table class="actividades-table" id="tabla-preventivo">
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>
+                            Limpieza y organización de racks, equipos y
+                            ventiladores.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="1" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>
+                            Aplicación y ejecución del protocolo de
+                            mantenimiento.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="2" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>
+                            Solventar inconvenientes menores en caso de
+                            suscitarse o requerirlo.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="3" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>
+                            Colocar etiqueta del mantenimiento correspondiente.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="4" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>Peinado del cableado del equipo.</td>
+                          <td>
+                            <input type="checkbox" data-activity-id="5" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <td>Verificar conexiones de datos y energía.</td>
+                          <td>
+                            <input type="checkbox" data-activity-id="6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <td>Verificar alarmas visuales externas.</td>
+                          <td>
+                            <input type="checkbox" data-activity-id="7" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>8</td>
+                          <td>
+                            Obtención de Backup de configuración del equipo.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="8" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <label>OBSERVACIONES / RECOMENDACIONES</label>
                     <textarea id="obs-preventivo" rows="4"></textarea>
                   </div>
                   <div class="actividades-col">
                     <h4>CORRECTIVO</h4>
-                    <table
-                      class="actividades-table"
-                      id="tabla-correctivo"
-                    ></table>
+                    <table class="actividades-table" id="tabla-correctivo">
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>
+                            Diagnóstico, verificación y solución problemas en
+                            forma remota.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="1" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>
+                            Diagnóstico, verificación y solución problemas en
+                            sitio.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="2" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>
+                            Traslado de los equipos para reparación correctiva.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="3" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>Reemplazo de tarjetas o módulos ópticos.</td>
+                          <td>
+                            <input type="checkbox" data-activity-id="4" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>Reemplazo de equipos.</td>
+                          <td>
+                            <input type="checkbox" data-activity-id="5" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <td>
+                            En caso de ser necesario, instalar parche o upgrade
+                            del equipo.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <td>
+                            Troubleshooting en el caso de configuraciones.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="7" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>8</td>
+                          <td>
+                            Verificar que el problema fue resuelto, agregar al
+                            informe.
+                          </td>
+                          <td>
+                            <input type="checkbox" data-activity-id="8" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <label>OBSERVACIONES / RECOMENDACIONES</label>
                     <textarea id="obs-correctivo" rows="4"></textarea>
                   </div>
@@ -240,7 +377,66 @@
               </div>
               <div class="ficha-section">
                 <h3>TAREAS DE DIAGNÓSTICO</h3>
-                <table class="actividades-table" id="tabla-diagnostico"></table>
+                <table class="actividades-table" id="tabla-diagnostico">
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        Revisión de estado por comandos esta sin alarmas...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="1" /></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        Ejecución de comando "display health"/"display
+                        environment"...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="2" /></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>
+                        Ejecución de comando "display health"/"display power"...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="3" /></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>
+                        Ejecución de comando "display health"/"display fan
+                        verbose"...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="4" /></td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>
+                        Ejecución de comando "display health"/"display
+                        cpu-usage"...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="5" /></td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>
+                        Ejecución de comando "display health"/"display
+                        memory-usage"...
+                      </td>
+                      <td><input type="checkbox" data-activity-id="6" /></td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>Ejecución de comando "display health"/"dir"...</td>
+                      <td><input type="checkbox" data-activity-id="7" /></td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>Ejecución de comando "display device"...</td>
+                      <td><input type="checkbox" data-activity-id="8" /></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div class="ficha-section">
                 <h3>REPORTE FOTOGRÁFICO</h3>
@@ -257,7 +453,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
     <script src="js/api-service.js" type="module"></script>
     <script src="js/app.js" type="module"></script>
   </body>
