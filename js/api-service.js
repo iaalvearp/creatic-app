@@ -1,6 +1,6 @@
 // creaticWeb/js/api-service.js
 // --- PUNTO CENTRAL DE CONFIGURACIÓN ---
-const ENTORNO = 'produccion'; // Cambia a 'mock' si necesitas pruebas offline
+const ENTORNO = 'mock'; // Cambia a 'mock' si necesitas pruebas offline
 const CONFIG = {
     mock: { BASE_URL: 'https://api-mock.iaalvearp.workers.dev' },
     produccion: { BASE_URL: 'http://184.174.39.191:8000' } // Asegúrate que el puerto sea el correcto (80 o 8000)
