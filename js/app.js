@@ -626,10 +626,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const equipo of equiposFiltradosMasivo) {
             const cliente = (todosLosDatosDeCatalogos.clientes || []).find(c => c.id == equipo.cliente_id) || {};
-            const agencia = (todosLosDatosDeCatalogos.ubicacion || [])
-                .flatMap(u => u.ciudades)
-                .flatMap(c => c.agencia)
-                .find(a => a.id == equipo.agencia_id) || {};
+            // Busca la agencia correcta usando la ubicación específica del equipo
+            let agenciaNombreCorrecto = 'N/A'; // Valor por defecto
+            const provinciaData = (todosLosDatosDeCatalogos.ubicacion || []).find(u => u.id == equipo.provincia_id);
+            const ciudadData = provinciaData?.ciudades.find(c => c.id == equipo.ciudad_id);
+            const agenciaData = ciudadData?.agencia.find(a => a.id == equipo.agencia_id);
+            if (agenciaData) {
+                agenciaNombreCorrecto = agenciaData.nombre;
+            }
 
             const taskData = {
                 cliente_id: equipo.cliente_id,
@@ -642,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tecnico_id: tecnicoId,
                 cliente_nombre: cliente.nombreCompleto,
                 equipo_nombre: equipo.nombre,
-                agencia_nombre: agencia.nombre,
+                agencia_nombre: agenciaNombreCorrecto,
                 tecnico_nombre: tecnicoNombre,
                 estado: 'pendiente'
             };
