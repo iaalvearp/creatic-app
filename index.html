@@ -6,6 +6,7 @@
     <title>CreaTIC</title>
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <base target="_blank" />
   </head>
   <body>
     <div class="container">
@@ -15,62 +16,130 @@
       </header>
 
       <nav class="tabs">
-        <button id="tab-crear" class="tab-button active">Crear / Editar</button>
+        <button id="tab-creacion-masiva" class="tab-button supervisor-only">
+          Creación Masiva
+        </button>
+        <button id="tab-crear-editar" class="tab-button supervisor-only">
+          Crear / Editar
+        </button>
         <button id="tab-gestionar" class="tab-button">Gestionar Tareas</button>
-        <button id="tab-informes" class="tab-button">Informes</button>
+        <button id="tab-informes" class="tab-button supervisor-only">
+          Informes
+        </button>
+        <button id="tab-ingreso-bbdd" class="tab-button admin-only">
+          Ingreso a BBDD
+        </button>
+        <button id="tab-editar-bbdd" class="tab-button admin-only">
+          Editar BBDD
+        </button>
       </nav>
 
       <main>
-        <!-- {/* --- Vistas de Crear y Gestionar (sin cambios) --- */} -->
-        <div id="vista-crear" class="tab-content active">
-          <form id="formulario-tarea">
+        <div id="vista-creacion-masiva" class="tab-content">
+          <form id="form-masivo">
             <div>
-              <h2 id="form-title">Información General</h2>
+              <h2>Información General (Creación Masiva)</h2>
               <div class="grid-container">
                 <div class="form-section">
                   <div>
-                    <label for="select-cliente">Cliente</label
-                    ><select id="select-cliente">
-                      <option>Cargando...</option>
+                    <label for="select-cliente-masivo">Cliente</label>
+                    <select id="select-cliente-masivo" required>
+                      <option value="">Cargando...</option>
                     </select>
                   </div>
                   <div>
-                    <label for="select-proyecto">Proyecto</label
-                    ><select id="select-proyecto" disabled>
-                      <option>Seleccione...</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="select-tecnico">Técnico</label
-                    ><select id="select-tecnico">
-                      <option>Seleccione...</option>
+                    <label for="select-proyecto-masivo">Proyecto</label>
+                    <select id="select-proyecto-masivo" disabled required>
+                      <option value="">Seleccione...</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-section">
                   <div>
-                    <label for="select-provincia">Provincia</label
-                    ><select id="select-provincia">
-                      <option>Cargando...</option>
+                    <label for="select-unidad-negocio-masivo"
+                      >Unidad de Negocio</label
+                    >
+                    <select id="select-unidad-negocio-masivo" required>
+                      <option value="">
+                        -- Seleccione para crear en lote --
+                      </option>
+                    </select>
+                    <small
+                      id="equipo-counter"
+                      class="form-text-feedback"
+                    ></small>
+                  </div>
+                  <div>
+                    <label for="select-tecnico-masivo">Técnico</label>
+                    <select id="select-tecnico-masivo" required>
+                      <option value="">Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-container">
+              <button type="submit" id="btn-submit-masivo" disabled>
+                Crear Tareas
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="vista-crear-editar" class="tab-content">
+          <form id="form-manual">
+            <div>
+              <h2 id="form-title-manual">
+                Información General (Creación Manual)
+              </h2>
+              <div class="grid-container">
+                <div class="form-section">
+                  <div>
+                    <label for="select-cliente-manual">Cliente</label>
+                    <select id="select-cliente-manual" required>
+                      <option value="">Cargando...</option>
                     </select>
                   </div>
                   <div>
-                    <label for="select-ciudad">Ciudad</label
-                    ><select id="select-ciudad" disabled>
-                      <option>Seleccione...</option>
+                    <label for="select-proyecto-manual">Proyecto</label>
+                    <select id="select-proyecto-manual" disabled required>
+                      <option value="">Seleccione...</option>
                     </select>
                   </div>
                   <div>
-                    <label for="select-agencia">Localidad / Agencia</label
-                    ><select id="select-agencia" disabled>
-                      <option>Seleccione...</option>
+                    <label for="select-tecnico-manual">Técnico</label>
+                    <select id="select-tecnico-manual" required>
+                      <option value="">Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-section">
+                  <div>
+                    <label for="select-provincia">Provincia</label>
+                    <select id="select-provincia" required>
+                      <option value="">Cargando...</option>
                     </select>
                   </div>
                   <div>
-                    <label for="select-unidad-negocio">Unidad de Negocio</label
-                    ><select id="select-unidad-negocio" disabled>
-                      <option>Seleccione...</option>
+                    <label for="select-ciudad">Ciudad</label>
+                    <select id="select-ciudad" disabled required>
+                      <option value="">Seleccione...</option>
                     </select>
+                  </div>
+                  <div>
+                    <label for="select-agencia">Localidad / Agencia</label>
+                    <select id="select-agencia" disabled required>
+                      <option value="">Seleccione...</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Unidad de Negocio</label>
+                    <input
+                      type="text"
+                      id="info-unidad-negocio"
+                      readonly
+                      disabled
+                    />
                   </div>
                 </div>
               </div>
@@ -79,53 +148,62 @@
               <h2>Información de Equipo</h2>
               <div class="grid-container">
                 <div>
-                  <label for="select-equipo">Número de Serie del Equipo</label
-                  ><select id="select-equipo" disabled>
+                  <label for="select-equipo">Número de Serie del Equipo</label>
+                  <select id="select-equipo" disabled required>
                     <option>Seleccione...</option>
                   </select>
                 </div>
                 <div class="form-section">
                   <div>
-                    <label>Nombre del Equipo</label
-                    ><input type="text" id="info-nombre-equipo" readonly />
+                    <label>Nombre del Equipo</label>
+                    <input type="text" id="info-nombre-equipo" readonly />
+                  </div>
+                  <div>
+                    <label>Modelo y Características</label>
+                    <textarea
+                      id="info-caracteristicas-equipo"
+                      rows="3"
+                      readonly
+                    ></textarea>
                   </div>
                 </div>
-              </div>
-              <div style="margin-top: 1rem">
-                <label>Modelo y Características</label
-                ><textarea
-                  id="info-caracteristicas-equipo"
-                  rows="3"
-                  readonly
-                ></textarea>
               </div>
             </div>
             <div class="submit-container">
               <button
                 type="button"
-                id="btn-cancelar"
+                id="btn-cancelar-manual"
                 class="button-secondary"
                 style="display: none"
               >
                 Cancelar
               </button>
-              <button type="submit" id="btn-submit-form" disabled>
+              <button type="submit" id="btn-submit-manual" disabled>
                 Crear Tarea
               </button>
             </div>
           </form>
         </div>
-        <div id="vista-gestionar" class="tab-content">
+
+        <div id="vista-gestionar" class="tab-content active">
           <div class="gestion-header">
-            <h2>Tareas Creadas</h2>
-            <p>Aquí puedes ver, editar o eliminar las tareas asignadas.</p>
+            <div>
+              <h2>Tareas Creadas</h2>
+              <p>Aquí puedes ver, editar o eliminar las tareas asignadas.</p>
+            </div>
+            <button
+              id="btn-delete-selected"
+              class="button-secondary"
+              style="display: none"
+            >
+              Eliminar Seleccionados (0)
+            </button>
           </div>
           <div id="lista-tareas-container" class="task-list">
             <p>Cargando tareas...</p>
           </div>
         </div>
 
-        <!-- {/* --- VISTA DE INFORMES ACTUALIZADA --- */} -->
         <div id="vista-informes" class="tab-content">
           <div class="gestion-header">
             <h2>Generación de Informes</h2>
@@ -135,7 +213,7 @@
             </p>
           </div>
           <div id="lista-informes-container" class="task-list">
-            <p>Cargando tareas completadas...</p>
+            <p>Cargando tarea de ejemplo...</p>
           </div>
 
           <div id="ficha-container" class="hidden">
@@ -143,309 +221,25 @@
               <button id="btn-volver-lista" class="button-secondary">
                 ← Volver a la lista
               </button>
-              <button id="btn-exportar-pdf">Exportar a PDF</button>
+              <button id="btn-exportar-pdf">Exportar Ficha Actual</button>
             </div>
-            <div id="ficha-mantenimiento" class="ficha-mantenimiento">
-              <div class="ficha-header">
-                <img
-                  src="assets/logo.png"
-                  alt="Logo CreaTIC"
-                  class="ficha-logo"
-                />
-                <div class="ficha-title-container">
-                  <h2 class="ficha-title">FICHA DE MANTENIMIENTO</h2>
-                  <p class="ficha-subtitle">
-                    CONTRATO Nro. CNEL-OFC-GJ-006-2024
-                  </p>
-                </div>
-                <img
-                  src="./assets/cnel.png"
-                  alt="Logo CNEL"
-                  class="ficha-logo-cnel"
-                />
-              </div>
-              <div class="ficha-section">
-                <h3>INFORMACIÓN GENERAL</h3>
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>CLIENTE:</label><span id="info-cliente"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>FECHA (DD MM AAAA):</label
-                    ><span id="info-fecha"></span>
-                  </div>
-                  <div class="info-item full-width">
-                    <label>NOMBRE DEL PROYECTO:</label
-                    ><span id="info-proyecto"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>PROVINCIA:</label><span id="info-provincia"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>CIUDAD:</label><span id="info-ciudad"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>NOMBRE UNIDAD DE NEGOCIO:</label
-                    ><span id="info-unidad-negocio"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>AGENCIA, OFICINA, SUBESTACIÓN:</label
-                    ><span id="info-agencia"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="ficha-section">
-                <h3>INFORMACIÓN DE EQUIPO</h3>
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>TIPO DE EQUIPO:</label
-                    ><span id="info-tipo-equipo"></span>
-                  </div>
-                  <div class="info-item">
-                    <label>MODELO DEL EQUIPO:</label
-                    ><span id="info-modelo-equipo"></span>
-                  </div>
-                  <div class="info-item full-width">
-                    <label>NÚMERO DE SERIE DEL EQUIPO:</label
-                    ><span id="info-serie-equipo"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="ficha-section">
-                <h3>ACTIVIDADES DE MANTENIMIENTO</h3>
-                <div class="actividades-grid">
-                  <div class="actividades-col">
-                    <h4>PREVENTIVO</h4>
-                    <table class="actividades-table" id="tabla-preventivo">
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>
-                            Limpieza y organización de racks, equipos y
-                            ventiladores.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="1" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            Aplicación y ejecución del protocolo de
-                            mantenimiento.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="2" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>
-                            Solventar inconvenientes menores en caso de
-                            suscitarse o requerirlo.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="3" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>
-                            Colocar etiqueta del mantenimiento correspondiente.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="4" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Peinado del cableado del equipo.</td>
-                          <td>
-                            <input type="checkbox" data-activity-id="5" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>6</td>
-                          <td>Verificar conexiones de datos y energía.</td>
-                          <td>
-                            <input type="checkbox" data-activity-id="6" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>7</td>
-                          <td>Verificar alarmas visuales externas.</td>
-                          <td>
-                            <input type="checkbox" data-activity-id="7" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>8</td>
-                          <td>
-                            Obtención de Backup de configuración del equipo.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="8" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <label>OBSERVACIONES / RECOMENDACIONES</label>
-                    <textarea id="obs-preventivo" rows="4"></textarea>
-                  </div>
-                  <div class="actividades-col">
-                    <h4>CORRECTIVO</h4>
-                    <table class="actividades-table" id="tabla-correctivo">
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>
-                            Diagnóstico, verificación y solución problemas en
-                            forma remota.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="1" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>
-                            Diagnóstico, verificación y solución problemas en
-                            sitio.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="2" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>
-                            Traslado de los equipos para reparación correctiva.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="3" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Reemplazo de tarjetas o módulos ópticos.</td>
-                          <td>
-                            <input type="checkbox" data-activity-id="4" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Reemplazo de equipos.</td>
-                          <td>
-                            <input type="checkbox" data-activity-id="5" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>6</td>
-                          <td>
-                            En caso de ser necesario, instalar parche o upgrade
-                            del equipo.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="6" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>7</td>
-                          <td>
-                            Troubleshooting en el caso de configuraciones.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="7" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>8</td>
-                          <td>
-                            Verificar que el problema fue resuelto, agregar al
-                            informe.
-                          </td>
-                          <td>
-                            <input type="checkbox" data-activity-id="8" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <label>OBSERVACIONES / RECOMENDACIONES</label>
-                    <textarea id="obs-correctivo" rows="4"></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="ficha-section">
-                <h3>TAREAS DE DIAGNÓSTICO</h3>
-                <table class="actividades-table" id="tabla-diagnostico">
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                        Revisión de estado por comandos esta sin alarmas...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="1" /></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>
-                        Ejecución de comando "display health"/"display
-                        environment"...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="2" /></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>
-                        Ejecución de comando "display health"/"display power"...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="3" /></td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>
-                        Ejecución de comando "display health"/"display fan
-                        verbose"...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="4" /></td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>
-                        Ejecución de comando "display health"/"display
-                        cpu-usage"...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="5" /></td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>
-                        Ejecución de comando "display health"/"display
-                        memory-usage"...
-                      </td>
-                      <td><input type="checkbox" data-activity-id="6" /></td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>Ejecución de comando "display health"/"dir"...</td>
-                      <td><input type="checkbox" data-activity-id="7" /></td>
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td>Ejecución de comando "display device"...</td>
-                      <td><input type="checkbox" data-activity-id="8" /></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="ficha-section">
-                <h3>REPORTE FOTOGRÁFICO</h3>
-                <h4>MANTENIMIENTO PREVENTIVO</h4>
-                <div id="fotos-preventivo" class="fotos-grid"></div>
-                <h4>MANTENIMIENTO CORRECTIVO</h4>
-                <div id="fotos-correctivo" class="fotos-grid"></div>
-              </div>
-            </div>
+            <div id="ficha-mantenimiento" class="ficha-mantenimiento"></div>
+          </div>
+        </div>
+
+        <div id="vista-ingreso-bbdd" class="tab-content">
+          <div class="gestion-header">
+            <h2>Ingreso a Base de Datos</h2>
+            <p>
+              Formularios para crear nuevos Clientes, Proyectos, Equipos, etc.
+            </p>
+          </div>
+        </div>
+
+        <div id="vista-editar-bbdd" class="tab-content">
+          <div class="gestion-header">
+            <h2>Edición de Base de Datos</h2>
+            <p>Grilla para editar o eliminar registros existentes.</p>
           </div>
         </div>
       </main>
@@ -453,7 +247,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script src="js/api-service.js" type="module"></script>
+    <script src="js/auth-guard.js" type="module"></script>
     <script src="js/app.js" type="module"></script>
   </body>
 </html>

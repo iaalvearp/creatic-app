@@ -132,12 +132,6 @@ body {
   border-color: var(--color-borde);
   color: var(--color-primario);
 }
-.tab-content {
-  display: none;
-}
-.tab-content.active {
-  display: block;
-}
 
 /* Formulario y Tarjetas */
 form,
@@ -270,7 +264,7 @@ button:disabled {
 /* Lista de Tareas */
 .task-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
 .task-card {
@@ -370,7 +364,7 @@ button:disabled {
   padding: 2.5rem;
   border-radius: 0.5rem;
   box-shadow: var(--sombra);
-  font-size: 12px; /* Base font size similar to PDF */
+  font-size: 12px;
   color: #000;
 }
 
@@ -404,7 +398,7 @@ button:disabled {
   margin-bottom: 1rem;
 }
 .ficha-section h3 {
-  background-color: #d9d9d9; /* Gris del PDF */
+  background-color: #d9d9d9;
   padding: 0.25rem 0.5rem;
   font-size: 1rem;
   font-weight: 700;
@@ -504,4 +498,103 @@ button:disabled {
   padding: 1rem;
   text-align: center;
   width: 100%;
+}
+
+/* --- ESTILOS PARA PDF MULTI-PÁGINA --- */
+
+.pdf-page {
+  border: 1px dashed var(--color-borde);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: #fdfdfd; /* Un fondo ligeramente diferente para ver los límites */
+
+  /* Simula un "salto de página" */
+  page-break-after: always;
+}
+
+.pdf-footer {
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--color-texto-claro);
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 0.5rem;
+}
+
+label.obs-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  display: block;
+}
+
+/* --- ESTILOS PARA SECCIÓN DE FIRMAS --- */
+.firmas-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 250px;
+}
+
+.firma-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.firma-imagen {
+  border: 1px solid var(--color-borde);
+  width: 100%;
+  height: 150px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto-claro);
+  font-style: italic;
+}
+
+.firma-box label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-top: 1px solid #000;
+  padding-top: 0.5rem;
+  width: 90%;
+}
+
+.firma-box span {
+  font-size: 0.8rem;
+  color: var(--color-texto-claro);
+}
+
+/* Estilos para roles de usuario */
+
+.admin-only,
+.supervisor-only {
+  display: none;
+}
+
+/* --- ESTILOS PARA BORRADO SELECTIVO --- */
+
+/* Modifica el header para alinear el botón */
+.gestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilo visual para la tarjeta seleccionada */
+.task-card.selected {
+  background-color: #fef9c3; /* Un amarillo claro */
+  border-color: var(--color-primario);
+}
+
+/* Tabs puestos aquí sólo por scope*/
+.tab-content.active {
+  display: block;
+}
+.tab-content {
+  display: none;
 }
