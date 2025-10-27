@@ -459,15 +459,8 @@ button:disabled {
   border: 1px solid #ccc;
 }
 .actividades-table td:first-child {
-  width: 20px;
-  text-align: center;
-}
-.actividades-table td:last-child {
   width: 30px;
   text-align: center;
-}
-.actividades-table input[type="checkbox"] {
-  cursor: pointer;
 }
 
 .fotos-grid {

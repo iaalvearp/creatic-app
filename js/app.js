@@ -297,9 +297,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="ficha-header"><img src="assets/logo.png" alt="Logo CreaTIC" class="ficha-logo"><div class="ficha-title-container"><h2 class="ficha-title">FICHA DE MANTENIMIENTO</h2><p class="ficha-subtitle">CONTRATO Nro. CNEL-OFC-GJ-006-2024</p></div><img src="./assets/cnel.png" alt="Logo CNEL" class="ficha-logo-cnel"></div>
                 <div class="ficha-section"><h3>INFORMACIÓN GENERAL</h3><div class="info-grid"><div class="info-item"><label>CLIENTE:</label><span id="info-cliente"></span></div><div class="info-item"><label>FECHA (DD MM AAAA):</label><span id="info-fecha"></span></div><div class="info-item full-width"><label>NOMBRE DEL PROYECTO:</label><span id="info-proyecto"></span></div><div class="info-item"><label>PROVINCIA:</label><span id="info-provincia"></span></div><div class="info-item"><label>CIUDAD:</label><span id="info-ciudad"></span></div><div class="info-item"><label>NOMBRE UNIDAD DE NEGOCIO:</label><span id="info-unidad-negocio"></span></div><div class="info-item"><label>AGENCIA, OFICINA, SUBESTACIÓN:</label><span id="info-agencia"></span></div></div></div>
                 <div class="ficha-section"><h3>INFORMACIÓN DE EQUIPO</h3><div class="info-grid"><div class="info-item"><label>TIPO DE EQUIPO:</label><span id="info-tipo-equipo"></span></div><div class="info-item"><label>MODELO DEL EQUIPO:</label><span id="info-modelo-equipo"></span></div><div class="info-item full-width"><label>NÚMERO DE SERIE DEL EQUIPO:</label><span id="info-serie-equipo"></span></div></div></div>
-                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO PREVENTIVO</h3><table class="actividades-table" id="tabla-preventivo"><tbody><tr><td>1</td><td>Limpieza y organización de racks, equipos y ventiladores.</td><td><input type="checkbox" data-activity-id="1"></td></tr><tr><td>2</td><td>Revisión física de cables, conectores y estado de equipo.</td><td><input type="checkbox" data-activity-id="2"></td></tr><tr><td>3</td><td>Verificación de alarmas visuales o audibles.</td><td><input type="checkbox" data-activity-id="3"></td></tr><tr><td>4</td><td>Comprobación de etiquetado y rotulación.</td><td><input type="checkbox" data-activity-id="4"></td></tr><tr><td>5</td><td>Revisión de parámetros de configuración básicos.</td><td><input type="checkbox" data-activity-id="5"></td></tr><tr><td>6</td><td>Verificación de conectividad y rendimiento.</td><td><input type="checkbox" data-activity-id="6"></td></tr><tr><td>7</td><td>Actualización de firmware (si aplica y es autorizado).</td><td><input type="checkbox" data-activity-id="7"></td></tr><tr><td>8</td><td>Obtención de Backup de configuración del equipo.</td><td><input type="checkbox" data-activity-id="8"></td></tr></tbody></table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (PREVENTIVO)</label><textarea id="obs-preventivo" rows="4"></textarea></div>
-                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO CORRECTIVO</h3><table class="actividades-table" id="tabla-correctivo"><tbody><tr><td>1</td><td>Diagnóstico, verificación y solución problemas en forma remota.</td><td><input type="checkbox" data-activity-id="1"></td></tr><tr><td>2</td><td>Diagnóstico, verificación y solución problemas en sitio.</td><td><input type="checkbox" data-activity-id="2"></td></tr><tr><td>3</td><td>Reemplazo de partes o piezas defectuosas.</td><td><input type="checkbox" data-activity-id="3"></td></tr><tr><td>4</td><td>Configuración y ajuste de parámetros post-reparación.</td><td><input type="checkbox" data-activity-id="4"></td></tr><tr><td>5</td><td>Pruebas de funcionamiento y validación.</td><td><input type="checkbox" data-activity-id="5"></td></tr><tr><td>6</td><td>Carga de configuración de respaldo.</td><td><input type="checkbox" data-activity-id="6"></td></tr><tr><td>7</td><td>Instalación y configuración de equipo de respaldo.</td><td><input type="checkbox" data-activity-id="7"></td></tr><tr><td>8</td><td>Verificar que el problema fue resuelto, agregar al informe.</td><td><input type="checkbox" data-activity-id="8"></td></tr></tbody></table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (CORRECTIVO)</label><textarea id="obs-correctivo" rows="4"></textarea></div>
-                <div class="ficha-section"><h3>TAREAS DE DIAGNÓSTICO</h3><table class="actividades-table" id="tabla-diagnostico"><tbody><tr><td>1</td><td>Revisión de estado por comandos esta sin alarmas...</td><td><input type="checkbox" data-activity-id="1"></td></tr><tr><td>2</td><td>Ejecución de comando "display logbuffer".</td><td><input type="checkbox" data-activity-id="2"></td></tr><tr><td>3</td><td>Ejecución de comando "display alarm all".</td><td><input type="checkbox" data-activity-id="3"></td></tr><tr><td>4</td><td>Ejecución de comando "display version".</td><td><input type="checkbox" data-activity-id="4"></td></tr><tr><td>5</td><td>Ejecución de comando "display current-configuration".</td><td><input type="checkbox" data-activity-id="5"></td></tr><tr><td>6</td><td>Ejecución de comando "display interface brief".</td><td><input type="checkbox" data-activity-id="6"></td></tr><tr><td>7</td><td>Ejecución de comando "display cpu-usage".</td><td><input type="checkbox" data-activity-id="7"></td></tr><tr><td>8</td><td>Ejecución de comando "display device".</td><td><input type="checkbox" data-activity-id="8"></td></tr></tbody></table></div>
+                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO PREVENTIVO</h3><table class="actividades-table" id="tabla-preventivo">
+                    <thead>
+                        <tr>
+                        <th style="width: 20px;">#</th>
+                        <th>TAREA</th>
+                        <th style="width: 30px; text-align: center;">X</th>
+                        <th>OBSERVACION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (PREVENTIVO)</label><textarea id="obs-preventivo" rows="4"></textarea></div>
+                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO CORRECTIVO</h3><table class="actividades-table" id="tabla-correctivo">
+                    <thead>
+                        <tr>
+                        <th style="width: 20px;">#</th>
+                        <th>TAREA</th>
+                        <th style="width: 30px; text-align: center;">X</th>
+                        <th>OBSERVACION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                    </table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (CORRECTIVO)</label><textarea id="obs-correctivo" rows="4"></textarea></div>
+                <div class="ficha-section"><h3>TAREAS DE DIAGNÓSTICO</h3><table class="actividades-table" id="tabla-diagnostico">
+                    <thead>
+                        <tr>
+                        <th style="width: 20px;">#</th>
+                        <th>TAREA</th>
+                        <th style="width: 30px; text-align: center;">X</th>
+                        <th>OBSERVACION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                    </table></div>
                 <div class="pdf-footer">Página 1</div>
             </div>
             <div class="pdf-page">
@@ -315,6 +348,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="pdf-footer">Página 3</div>
             </div>
             `;
+
+            // Rellenar tabla Preventivo
+            const tbodyPreventivo = fichaHtml.querySelector('#tabla-preventivo tbody');
+            if (tbodyPreventivo && todosLosDatosDeCatalogos.actividadesPreventivo) {
+                todosLosDatosDeCatalogos.actividadesPreventivo.forEach((actividad, index) => {
+                    const row = tbodyPreventivo.insertRow();
+                    const realizado = (tarea.actividades_preventivo || []).includes(actividad.id); // Verifica si el ID está en la data de la tarea
+                    row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${actividad.nombre}</td>
+            <td style="text-align: center;">${realizado ? 'X' : ''}</td>
+            <td></td> 
+        `;
+                    // NOTA: La columna OBSERVACION se deja vacía por ahora.
+                    // Necesitaríamos que la 'tarea' guarde qué 'posibleRespuesta' se eligió.
+                });
+            }
+
+            // Rellenar tabla Correctivo
+            const tbodyCorrectivo = fichaHtml.querySelector('#tabla-correctivo tbody');
+            if (tbodyCorrectivo && todosLosDatosDeCatalogos.actividadesCorrectivo) {
+                todosLosDatosDeCatalogos.actividadesCorrectivo.forEach((actividad, index) => {
+                    const row = tbodyCorrectivo.insertRow();
+                    const realizado = (tarea.actividades_correctivo || []).includes(actividad.id);
+                    row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${actividad.nombre}</td>
+            <td style="text-align: center;">${realizado ? 'X' : ''}</td>
+            <td></td> 
+        `;
+                });
+            }
+
+            // Rellenar tabla Diagnóstico
+            const tbodyDiagnostico = fichaHtml.querySelector('#tabla-diagnostico tbody');
+            if (tbodyDiagnostico && todosLosDatosDeCatalogos.tareasDiagnostico) {
+                todosLosDatosDeCatalogos.tareasDiagnostico.forEach((actividad, index) => {
+                    const row = tbodyDiagnostico.insertRow();
+                    const realizado = (tarea.actividades_diagnostico || []).includes(actividad.id);
+                    row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${actividad.nombre}</td>
+            <td style="text-align: center;">${realizado ? 'X' : ''}</td>
+            <td></td> 
+        `;
+                });
+            }
         }
 
         // --- PÁGINA 1: INFO GENERAL Y MANTENIMIENTO ---
@@ -334,20 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('obs-preventivo').value = tarea.observaciones_preventivo;
         document.getElementById('obs-correctivo').value = tarea.observaciones_correctivo;
-
-        document.querySelectorAll('#ficha-mantenimiento input[type="checkbox"]').forEach(cb => cb.checked = false);
-        (tarea.actividades_preventivo || []).forEach(id => {
-            const checkbox = document.querySelector(`#tabla-preventivo input[data-activity-id="${id}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
-        (tarea.actividades_correctivo || []).forEach(id => {
-            const checkbox = document.querySelector(`#tabla-correctivo input[data-activity-id="${id}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
-        (tarea.actividades_diagnostico || []).forEach(id => {
-            const checkbox = document.querySelector(`#tabla-diagnostico input[data-activity-id="${id}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
 
         // --- PÁGINA 2: FOTOS (Preventivo O Correctivo) ---
         const galeriaPreventivo = document.getElementById('fotos-preventivo');
