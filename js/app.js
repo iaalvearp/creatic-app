@@ -295,49 +295,48 @@ document.addEventListener('DOMContentLoaded', () => {
             fichaHtml.innerHTML = `
             <div class="pdf-page">
                 <div class="ficha-header"><img src="assets/logo.png" alt="Logo CreaTIC" class="ficha-logo"><div class="ficha-title-container"><h2 class="ficha-title">FICHA DE MANTENIMIENTO</h2><p class="ficha-subtitle">CONTRATO Nro. CNEL-OFC-GJ-006-2024</p></div><img src="./assets/cnel.png" alt="Logo CNEL" class="ficha-logo-cnel"></div>
-                <div class="ficha-section"><h3>INFORMACIÓN GENERAL</h3><div class="info-grid"><div class="info-item"><label>CLIENTE:</label><span id="info-cliente"></span></div><div class="info-item"><label>FECHA (DD MM AAAA):</label><span id="info-fecha"></span></div><div class="info-item full-width"><label>NOMBRE DEL PROYECTO:</label><span id="info-proyecto"></span></div><div class="info-item"><label>PROVINCIA:</label><span id="info-provincia"></span></div><div class="info-item"><label>CIUDAD:</label><span id="info-ciudad"></span></div><div class="info-item"><label>NOMBRE UNIDAD DE NEGOCIO:</label><span id="info-unidad-negocio"></span></div><div class="info-item"><label>AGENCIA, OFICINA, SUBESTACIÓN:</label><span id="info-agencia"></span></div></div></div>
-                <div class="ficha-section"><h3>INFORMACIÓN DE EQUIPO</h3><div class="info-grid"><div class="info-item"><label>TIPO DE EQUIPO:</label><span id="info-tipo-equipo"></span></div><div class="info-item"><label>MODELO DEL EQUIPO:</label><span id="info-modelo-equipo"></span></div><div class="info-item full-width"><label>NÚMERO DE SERIE DEL EQUIPO:</label><span id="info-serie-equipo"></span></div></div></div>
-                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO PREVENTIVO</h3><table class="actividades-table" id="tabla-preventivo">
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-titulo);">INFORMACIÓN GENERAL</h3><div class="info-grid"><div class="info-item"><label>CLIENTE:</label><span id="info-cliente"></span></div><div class="info-item"><label>FECHA (DD MM AAAA):</label><span id="info-fecha"></span></div><div class="info-item full-width"><label>NOMBRE DEL PROYECTO:</label><span id="info-proyecto"></span></div><div class="info-item"><label>PROVINCIA:</label><span id="info-provincia"></span></div><div class="info-item"><label>CIUDAD:</label><span id="info-ciudad"></span></div><div class="info-item"><label>NOMBRE UNIDAD DE NEGOCIO:</label><span id="info-unidad-negocio"></span></div><div class="info-item"><label>AGENCIA, OFICINA, SUBESTACIÓN:</label><span id="info-agencia"></span></div></div></div>
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-info-general);">INFORMACIÓN DE EQUIPO</h3><div class="info-grid"><div class="info-item"><label>TIPO DE EQUIPO:</label><span id="info-tipo-equipo"></span></div><div class="info-item"><label>MODELO DEL EQUIPO:</label><span id="info-modelo-equipo"></span></div><div class="info-item full-width"><label>NÚMERO DE SERIE DEL EQUIPO:</label><span id="info-serie-equipo"></span></div></div></div>
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-info-general);">ACTIVIDADES DE MANTENIMIENTO PREVENTIVO</h3><table class="actividades-table" id="tabla-preventivo">
                     <thead>
                         <tr>
-                        <th style="width: 20px;">#</th>
+                        <th style="width: 1rem;">#</th>
                         <th>TAREA</th>
-                        <th style="width: 30px; text-align: center;">X</th>
+                        <th style="width: 1.5rem; text-align: center;">X</th>
                         <th>OBSERVACION</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
-                </table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (PREVENTIVO)</label><textarea id="obs-preventivo" rows="4"></textarea></div>
-                <div class="ficha-section"><h3>ACTIVIDADES DE MANTENIMIENTO CORRECTIVO</h3><table class="actividades-table" id="tabla-correctivo">
+                </table><label class="obs-label" style="background-color: var(--ficha-info-general); text-align: center;">OBSERVACIONES / RECOMENDACIONES</label><textarea id="obs-preventivo" rows="4"></textarea></div>
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-correctivo);">CORRECTIVO</h3><table class="actividades-table" id="tabla-correctivo">
                     <thead>
                         <tr>
-                        <th style="width: 20px;">#</th>
+                        <th style="width: 1rem;">#</th>
                         <th>TAREA</th>
-                        <th style="width: 30px; text-align: center;">X</th>
+                        <th style="width: 1.5rem; text-align: center;">X</th>
                         <th>OBSERVACION</th>
                         </tr>
                     </thead>
                     <tbody>
                         </tbody>
-                    </table><label class="obs-label">OBSERVACIONES / RECOMENDACIONES (CORRECTIVO)</label><textarea id="obs-correctivo" rows="4"></textarea></div>
-                <div class="ficha-section"><h3>TAREAS DE DIAGNÓSTICO</h3><table class="actividades-table" id="tabla-diagnostico">
-                    <thead>
-                        <tr>
-                        <th style="width: 20px;">#</th>
-                        <th>TAREA</th>
-                        <th style="width: 30px; text-align: center;">X</th>
-                        <th>OBSERVACION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                    </table></div>
+                    </table><label class="obs-label" style="background-color: var(--ficha-correctivo); text-align: center;">OBSERVACIONES / RECOMENDACIONES</label><textarea id="obs-correctivo" rows="4"></textarea></div>
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-diagnostico);">TAREAS DE DIAGNÓSTICO</h3><div id="diagnostico-container" style="padding: 0.5rem;">
+  </div>
+<div class="ficha-section" style="margin-top: 1rem; border-top: 1px solid #000;">
+  <h4 style="background-color: var(--ficha-diagnostico); padding: 0.25rem 0.5rem; font-weight: 700;">ESTADO DEL FIRMWARE DEL EQUIPO</h4>
+  <div class="info-grid">
+      <div class="info-item full-width"><label>Versión actual de Firmware / Parche:</label><span id="firmware-actual"></span></div>
+      <div class="info-item full-width"><label>Versión después de actualización de Firmware / Parche:</label><span id="firmware-nuevo"></span></div>
+  </div>
+</div>
+ <label class="obs-label" style="padding: 0.5rem;">OBSERVACIONES DE ACTUALIZACIÓN</label>
+ <textarea id="obs-actualizacion" rows="4" style="margin: 0.5rem; width: calc(100% - 1rem); border: 1px solid #ccc; font-size: 11px;"></textarea></div>
                 <div class="pdf-footer">Página 1</div>
             </div>
             <div class="pdf-page">
                 <div class="ficha-header"><img src="assets/logo.png" alt="Logo CreaTIC" class="ficha-logo"><h2 class="ficha-title">REPORTE FOTOGRÁFICO</h2><img src="./assets/cnel.png" alt="Logo CNEL" class="ficha-logo-cnel"></div>
-                <div class="ficha-section" id="seccion-fotos-preventivo"><h3>MANTENIMIENTO PREVENTIVO</h3><div id="fotos-preventivo" class="fotos-grid"></div></div>
+                <div class="ficha-section" id="seccion-fotos-preventivo"><h3 >MANTENIMIENTO PREVENTIVO</h3><div id="fotos-preventivo" class="fotos-grid"></div></div>
                 <div class="ficha-section" id="seccion-fotos-correctivo"><h3>MANTENIMIENTO CORRECTIVO</h3><div id="fotos-correctivo" class="fotos-grid"></div></div>
                 <div class="pdf-footer">Página 2</div>
             </div>
@@ -381,19 +380,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Rellenar tabla Diagnóstico
-            const tbodyDiagnostico = fichaHtml.querySelector('#tabla-diagnostico tbody');
-            if (tbodyDiagnostico && todosLosDatosDeCatalogos.tareasDiagnostico) {
-                todosLosDatosDeCatalogos.tareasDiagnostico.forEach((actividad, index) => {
-                    const row = tbodyDiagnostico.insertRow();
-                    const realizado = (tarea.actividades_diagnostico || []).includes(actividad.id);
-                    row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${actividad.nombre}</td>
-            <td style="text-align: center;">${realizado ? 'X' : ''}</td>
-            <td></td> 
+            // Rellenar contenedor de Diagnóstico con formato especial
+            const diagnosticoContainer = fichaHtml.querySelector('#diagnostico-container');
+            if (diagnosticoContainer && todosLosDatosDeCatalogos.tareasDiagnostico) {
+                diagnosticoContainer.innerHTML = ''; // Limpiamos
+                const tareas = todosLosDatosDeCatalogos.tareasDiagnostico;
+                let tableHtml = '<table class="actividades-table" style="width: 100%; border: none;"><tbody>';
+
+                // Asumimos 8 tareas, 4 por columna
+                for (let i = 0; i < 4; i++) {
+                    const tareaIzq = tareas[i];
+                    const tareaDer = tareas[i + 4];
+
+                    // Verifica si la tarea se marcó como realizada (podemos simplificar a 'siempre true' si es necesario)
+                    // Para la tarea 8, comprobamos si *alguna* de sus sub-opciones está marcada (si la data lo permite)
+                    // Por ahora, marcaremos todas como realizadas según la data original.
+                    const realizadoIzq = (tarea.actividades_diagnostico || []).includes(tareaIzq.id);
+                    const realizadoDer = tareaDer ? (tarea.actividades_diagnostico || []).includes(tareaDer.id) : false;
+
+                    tableHtml += `
+            <tr>
+                <td style="width: 1rem; text-align: center; border: 1px solid #000;">${i + 1}</td>
+                <td style="border: 1px solid #000;">${tareaIzq.nombre}</td>
+                <td style="width: 1.5rem; text-align: center; border: 1px solid #000;">${realizadoIzq ? 'X' : ''}</td>
+                <td style="width: 1rem; text-align: center; border: 1px solid #000;">${tareaDer ? i + 5 : ''}</td>
+                <td style="border: 1px solid #000;">${tareaDer ? tareaDer.nombre : ''}</td>
+                <td style="width: 1.5rem; text-align: center; border: 1px solid #000;">${realizadoDer ? 'X' : ''}</td>
+            </tr>
         `;
-                });
+                }
+                tableHtml += '</tbody></table>';
+                diagnosticoContainer.innerHTML = tableHtml;
+
+                // Rellenar campos de Firmware y Observaciones (si existen en la 'tarea')
+                // Si no existen, los dejamos vacíos. Necesitarás añadir estas propiedades 
+                // a tu 'tareaEjemplo' y a las tareas reales cuando se completen.
+                const firmwareActualSpan = fichaHtml.querySelector('#firmware-actual');
+                const firmwareNuevoSpan = fichaHtml.querySelector('#firmware-nuevo');
+                const obsActualizacionTextarea = fichaHtml.querySelector('#obs-actualizacion');
+
+                if (firmwareActualSpan) firmwareActualSpan.textContent = tarea.firmware_actual || ''; // Ejemplo: 'V1.0'
+                if (firmwareNuevoSpan) firmwareNuevoSpan.textContent = tarea.firmware_nuevo || '';   // Ejemplo: 'V1.1'
+                if (obsActualizacionTextarea) obsActualizacionTextarea.value = tarea.observaciones_actualizacion || ''; // Ejemplo: 'Actualización exitosa.'
             }
         }
 
