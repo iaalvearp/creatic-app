@@ -321,7 +321,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tbody>
                         </tbody>
                     </table><label class="obs-label" style="background-color: var(--ficha-correctivo); text-align: center;">OBSERVACIONES / RECOMENDACIONES</label><textarea id="obs-correctivo" rows="4"></textarea></div>
-                <div class="ficha-section"><h3 style="background-color: var(--ficha-diagnostico);">TAREAS DE DIAGNÓSTICO</h3><div id="diagnostico-container" style="padding: 0.5rem;">
+                <div class="ficha-section"><h3 style="background-color: var(--ficha-diagnostico);">TAREAS DE DIAGNÓSTICO</h3><div id="diagnostico-container" style="padding: 0.5rem;"><table class="actividades-table diagnostico-table" style="width: 100%; border: none;"><thead>
+        <tr>
+            <th style="width: 20px;">#</th>
+            <th style="background-color: #d9d9d9;">CHECK DE TAREAS</th>
+            <th style="width: 30px; text-align: center;">X</th>
+            <th style="width: 20px;">#</th>
+            <th style="background-color: #d9d9d9;">CHECK DE TAREAS</th>
+            <th style="width: 30px; text-align: center;">X</th>
+        </tr>
+    </thead>
+    <tbody>
+        </tbody>
+</table>
   </div>
 <div class="ficha-section" style="margin-top: 1rem; border-top: 1px solid #000;">
   <h4 style="background-color: var(--ficha-diagnostico); padding: 0.25rem 0.5rem; font-weight: 700;">ESTADO DEL FIRMWARE DEL EQUIPO</h4>
@@ -446,38 +458,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- PÁGINA 2: FOTOS (Preventivo O Correctivo) ---
         const galeriaPreventivo = document.getElementById('fotos-preventivo');
         const seccionPreventivo = document.getElementById('seccion-fotos-preventivo');
-        galeriaPreventivo.innerHTML = '';
-        if (tarea.fotos_preventivo && tarea.fotos_preventivo.length > 0) {
-            tarea.fotos_preventivo.forEach(url => {
-                galeriaPreventivo.innerHTML += `<div class="foto-item"><img src="${url}" alt="Foto Preventivo"></div>`;
-            });
-            seccionPreventivo.style.display = 'block';
-        } else {
-            seccionPreventivo.style.display = 'none';
+        if (galeriaPreventivo && seccionPreventivo) {
+            // Llama a renderizar SIEMPRE para crear los 6 espacios
+            renderizarFotos(galeriaPreventivo, tarea.fotos_preventivo, 'Foto Preventivo');
+            // Decide si mostrar la sección COMPLETA
+            seccionPreventivo.style.display = (tarea.fotos_preventivo && tarea.fotos_preventivo.length > 0) ? 'block' : 'none';
         }
 
         const galeriaCorrectivo = document.getElementById('fotos-correctivo');
         const seccionCorrectivo = document.getElementById('seccion-fotos-correctivo');
-        galeriaCorrectivo.innerHTML = '';
-        if (tarea.fotos_correctivo && tarea.fotos_correctivo.length > 0) {
-            tarea.fotos_correctivo.forEach(url => {
-                galeriaCorrectivo.innerHTML += `<div class="foto-item"><img src="${url}" alt="Foto Correctivo"></div>`;
-            });
-            seccionCorrectivo.style.display = 'block';
-        } else {
-            seccionCorrectivo.style.display = 'none';
+        if (galeriaCorrectivo && seccionCorrectivo) {
+            // Llama a renderizar SIEMPRE para crear los 6 espacios
+            renderizarFotos(galeriaCorrectivo, tarea.fotos_correctivo, 'Foto Correctivo');
+            // Decide si mostrar la sección COMPLETA
+            seccionCorrectivo.style.display = (tarea.fotos_correctivo && tarea.fotos_correctivo.length > 0) ? 'block' : 'none';
         }
 
-        // --- PÁGINA 3: CAPTURAS Y FIRMAS ---
+        // --- PÁGINA 3: CAPTURAS ---
         const galeriaCapturas = document.getElementById('fotos-capturas');
-        galeriaCapturas.innerHTML = '';
-        if (tarea.fotos_capturas && tarea.fotos_capturas.length > 0) {
-            tarea.fotos_capturas.forEach(url => {
-                galeriaCapturas.innerHTML += `<div class="foto-item"><img src="${url}" alt="Foto Captura"></div>`;
-            });
-        } else {
-            galeriaCapturas.innerHTML = '<p class="no-fotos">No hay capturas.</p>';
+        if (galeriaCapturas) {
+            // Siempre llama a renderizar para crear los 6 espacios
+            renderizarFotos(galeriaCapturas, tarea.fotos_capturas, 'Foto Captura');
+            // La sección de capturas siempre es visible (ajusta si prefieres ocultarla si está vacía)
         }
+
+        // --- PÁGINA 3: FIRMAS (Esto ya estaba) ---
+        document.getElementById('firma-nombre-tecnico').textContent = tarea.tecnico_nombre || 'N/A';
 
         document.getElementById('firma-nombre-tecnico').textContent = tarea.tecnico_nombre || 'N/A';
         document.getElementById('firma-nombre-cliente').textContent = '(Pendiente de firma)';
@@ -547,6 +553,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function renderizarFotos(galeriaElement, fotosUrls, altText) {
+        galeriaElement.innerHTML = ''; // Limpia la galería
+        const maxFotos = 6;
+        for (let i = 0; i < maxFotos; i++) {
+            const fotoDiv = document.createElement('div');
+            fotoDiv.className = 'foto-item';
+
+            // Si hay URL real para esta posición, usa la imagen
+            if (fotosUrls && fotosUrls[i]) {
+                fotoDiv.innerHTML = `<img src="${fotosUrls[i]}" alt="${altText} ${i + 1}">`;
+            } else {
+                // Si no hay URL, usa el nombre placeholder
+                fotoDiv.innerHTML = `img${i + 1}.avif`; // Muestra el nombre del archivo
+            }
+            galeriaElement.appendChild(fotoDiv);
+        }
+    }
 
     function resetFormMasivo() {
         if (!formMasivo) return; // Protección

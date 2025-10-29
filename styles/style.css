@@ -458,43 +458,115 @@ button:disabled {
   border: 1px solid #ccc;
   padding: 0.25rem;
 }
+.actividades-table td,
+.actividades-table th {
+  padding: 0.35rem 0.5rem; /* Ajusta el padding */
+  border: 1px solid #000; /* Borde negro para celdas */
+  vertical-align: top; /* Alinea el texto arriba */
+}
+
+/* --- Estilos para tablas Preventivo/Correctivo (4 columnas) --- */
+#tabla-preventivo td:nth-child(1),
+#tabla-preventivo th:nth-child(1),
+#tabla-correctivo td:nth-child(1),
+#tabla-correctivo th:nth-child(1) {
+  width: 20px;
+  text-align: center;
+}
+#tabla-preventivo td:nth-child(2),
+#tabla-preventivo th:nth-child(2),
+#tabla-correctivo td:nth-child(2),
+#tabla-correctivo th:nth-child(2) {
+  width: 65%; /* Más ancho para la tarea */
+  white-space: normal; /* ¡PERMITE EL TEXT-WRAP! */
+  word-break: break-word; /* Rompe palabras largas */
+}
+#tabla-preventivo td:nth-child(3),
+#tabla-preventivo th:nth-child(3),
+#tabla-correctivo td:nth-child(3),
+#tabla-correctivo th:nth-child(3) {
+  width: 30px;
+  text-align: center;
+  font-weight: bold; /* ¡X EN NEGRITA! */
+}
+#tabla-preventivo td:nth-child(4),
+#tabla-preventivo th:nth-child(4),
+#tabla-correctivo td:nth-child(4),
+#tabla-correctivo th:nth-child(4) {
+  width: auto; /* Resto del espacio para Observación */
+}
+
+/* --- Estilos para tabla Diagnóstico (6 columnas) --- */
+.diagnostico-table td,
+.diagnostico-table th {
+  vertical-align: middle;
+}
+.diagnostico-table td:nth-child(1), .diagnostico-table th:nth-child(1), /* # Izq */
+.diagnostico-table td:nth-child(4), .diagnostico-table th:nth-child(4) {
+  /* # Der */
+  width: 20px;
+  text-align: center;
+}
+.diagnostico-table td:nth-child(2), .diagnostico-table th:nth-child(2), /* Tarea Izq */
+.diagnostico-table td:nth-child(5), .diagnostico-table th:nth-child(5) {
+  /* Tarea Der */
+  width: auto;
+  white-space: normal;
+  word-break: break-word;
+}
+.diagnostico-table td:nth-child(3), .diagnostico-table th:nth-child(3), /* X Izq */
+.diagnostico-table td:nth-child(6), .diagnostico-table th:nth-child(6) {
+  /* X Der */
+  width: 30px;
+  text-align: center;
+  font-weight: bold; /* ¡X EN NEGRITA! */
+}
+
 .actividades-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 11px;
+  border: 1px solid #000;
+  background-color: white;
+  margin-top: -1px;
 }
-.actividades-table td {
-  padding: 0.25rem;
-  border: 1px solid #ccc;
-}
-.actividades-table td:first-child {
-  width: 30px;
-  text-align: center;
+.actividades-table thead {
+  background-color: #d9d9d9;
+  font-weight: bold;
+  text-align: center; /* Centra cabeceras */
 }
 
 .fotos-grid {
-  padding: 0.5rem;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  min-height: 100px;
-  border-top: 1px solid #ccc;
-  margin: 0.5rem;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  grid-auto-rows: min-content; /* Altura basada en el contenido */
+  gap: 0; /* Sin espacios */
+  border-top: 1px solid #000;
+  background-color: #000;
+  overflow: hidden;
+  margin: 0;
 }
 
-/* ¡NUEVOS ESTILOS A AÑADIR! */
 .foto-item {
-  border: 1px solid var(--color-borde);
-  border-radius: 0.25rem;
+  border: 1px solid #000;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9; /* Proporción 16:9 */
   overflow: hidden;
-  aspect-ratio: 4 / 3; /* Proporción para que las fotos se vean bien */
+  font-size: 10px;
+  color: #999;
 }
+
 .foto-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Asegura que la imagen llene el contenedor sin deformarse */
+  object-fit: cover; /* 'cover' llena el cuadro 16:9 */
   display: block;
 }
+
 .no-fotos {
   color: var(--color-texto-claro);
   padding: 1rem;
